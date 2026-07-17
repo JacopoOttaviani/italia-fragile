@@ -44,10 +44,19 @@ section{scroll-margin-top:76px;}
 #topnav nav a.active{color:var(--ink);border-bottom-color:var(--id);}
 
 /* ---------- hero ---------- */
-header.hero{border-bottom:1px solid var(--hair);
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Cg fill='none' stroke='%234FC6CE' stroke-opacity='.07' stroke-width='1.5'%3E%3Cpath d='M0,480 C150,430 300,510 450,460 C600,410 750,490 900,440'/%3E%3Cpath d='M0,420 C150,370 310,450 460,400 C610,350 760,430 900,380'/%3E%3Cpath d='M0,360 C150,310 320,390 470,340 C620,290 770,370 900,320'/%3E%3Cpath d='M0,300 C150,250 330,330 480,280 C630,230 780,310 900,260'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right -60px top;background-size:900px 600px;}
-header.hero .wrap{display:grid;grid-template-columns:7fr 4fr;gap:64px;padding-top:72px;padding-bottom:64px;align-items:end;}
+header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--hair);
+  background:radial-gradient(1000px 560px at 76% 24%, rgba(79,198,206,.07), transparent 65%) var(--bg);}
+header.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(222,231,228,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(222,231,228,.03) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.2));
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.2));}
+.hero-bg{position:absolute;inset:0;pointer-events:none;}
+.hero-bg svg{position:absolute;right:-140px;top:50%;transform:translateY(-50%);width:760px;height:760px;}
+.hero-coords{position:absolute;right:28px;bottom:16px;font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px;letter-spacing:.14em;color:var(--grey);opacity:.55;pointer-events:none;}
+header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;gap:64px;padding-top:84px;padding-bottom:76px;align-items:end;}
 .kicker{font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--id);margin-bottom:22px;}
 .hero h1{font-size:clamp(38px,5vw,66px);font-weight:600;line-height:1.06;letter-spacing:-1.2px;}
 .hero h1 em{font-style:italic;font-weight:600;color:var(--id);}
@@ -189,6 +198,8 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 /* ---------- responsive ---------- */
 @media (max-width:1020px){
   header.hero .wrap{grid-template-columns:1fr;gap:36px;}
+  .hero-bg svg{right:-320px;opacity:.55;}
+  .hero-coords{display:none;}
   .kpis{border-left:none;border-top:1px solid var(--hair);flex-direction:row;}
   .kpi{flex:1;padding:20px 18px 0 0;}
   .kpi+.kpi{border-top:none;border-left:1px solid var(--hair);padding-left:18px;}
@@ -230,6 +241,19 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 </div>
 
 <header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g fill="none" stroke="#4FC6CE">
+        <g opacity=".05"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+        <g opacity=".065" transform="translate(50 62) scale(.8) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+        <g opacity=".08" transform="translate(50 62) scale(.62) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+        <g opacity=".095" transform="translate(50 62) scale(.46) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+        <g opacity=".11" transform="translate(50 62) scale(.32) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+        <g opacity=".13" transform="translate(50 62) scale(.2) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-coords" aria-hidden="true">41.8919 N &middot; 12.5113 E</div>
   <div class="wrap">
     <div>
       <div class="kicker">Atlante del dissesto idrogeologico</div>
