@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ItaliaFragile - Atlante del dissesto idrogeologico</title>
+<meta name="description" content="Frane e alluvioni in Italia, comune per comune: mappe interattive e classifiche costruite sugli open data ISPRA IdroGEO e CNR-IRPI.">
+<meta property="og:title" content="ItaliaFragile - Atlante del dissesto idrogeologico">
+<meta property="og:description" content="Il 94% dei comuni italiani ha aree a pericolosità da frana o alluvione. Cerca il tuo.">
+<meta name="theme-color" content="#0D181D">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230D181D'/%3E%3Cpath d='M32 6 C32 6 51 30 51 40 A19 19 0 1 1 13 40 C13 30 32 6 32 6 Z' fill='none' stroke='%234FC6CE' stroke-width='3.5'/%3E%3Cpath d='M32 24 C32 24 40.5 34.7 40.5 39.2 A8.5 8.5 0 1 1 23.5 39.2 C23.5 34.7 32 24 32 24 Z' fill='%234FC6CE'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --bg:#0D181D; --card:#13242B; --ink:#DEE7E4; --soft:#B9C9CC; --grey:#8AA1A6;
+  --hair:#24363D; --line:#3A5058; --hover:#1B3038;
+  --zero:#1B2E35; --band:#0F1E25; --mapbg:#0F1E25;
+  --fr:#D69A3F; --fr-hi:#E7B76A;
+  --id:#4FC6CE; --id-hi:#7CD9DF;
+}
+*{margin:0;padding:0;box-sizing:border-box;border-radius:0!important;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.55;}
+.mono,.kicker,.ctrl-label,.kpi-num,.big-num{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px;}
+a{color:inherit;}
+section{scroll-margin-top:76px;}
+:focus-visible{outline:2px solid var(--id);outline-offset:2px;}
+::selection{background:rgba(79,198,206,.35);}
+
+/* ---------- top nav ---------- */
+#topnav{position:sticky;top:0;z-index:1200;background:rgba(13,24,29,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);}
+#topnav .wrap{display:flex;align-items:center;gap:28px;height:64px;}
+#topnav .brand{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:19px;letter-spacing:.04em;text-decoration:none;display:flex;align-items:center;gap:11px;}
+#topnav .brand svg{display:block;}
+#topnav .brand em{font-style:normal;color:var(--id);}
+#topnav nav{display:flex;gap:26px;margin-left:auto;overflow-x:auto;}
+#topnav nav a{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11.5px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;color:var(--grey);
+  text-decoration:none;padding:23px 0 21px;border-bottom:2px solid transparent;white-space:nowrap;}
+#topnav nav a:hover{color:var(--ink);}
+#topnav nav a.active{color:var(--ink);border-bottom-color:var(--id);}
+
+/* ---------- hero ---------- */
+header.hero{border-bottom:1px solid var(--hair);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Cg fill='none' stroke='%234FC6CE' stroke-opacity='.07' stroke-width='1.5'%3E%3Cpath d='M0,480 C150,430 300,510 450,460 C600,410 750,490 900,440'/%3E%3Cpath d='M0,420 C150,370 310,450 460,400 C610,350 760,430 900,380'/%3E%3Cpath d='M0,360 C150,310 320,390 470,340 C620,290 770,370 900,320'/%3E%3Cpath d='M0,300 C150,250 330,330 480,280 C630,230 780,310 900,260'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right -60px top;background-size:900px 600px;}
+header.hero .wrap{display:grid;grid-template-columns:7fr 4fr;gap:64px;padding-top:72px;padding-bottom:64px;align-items:end;}
+.kicker{font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--id);margin-bottom:22px;}
+.hero h1{font-size:clamp(38px,5vw,66px);font-weight:600;line-height:1.06;letter-spacing:-1.2px;}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--id);}
+.hero h1 .fr-word{color:var(--fr);}
+.standfirst{font-size:20px;font-weight:400;line-height:1.5;color:var(--soft);max-width:34em;margin-top:26px;}
+.hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.btn{display:inline-block;background:var(--id);color:var(--bg);padding:14px 30px;font-size:13px;font-weight:600;
+  letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;border:1px solid var(--id);cursor:pointer;}
+.btn:hover{background:var(--id-hi);border-color:var(--id-hi);}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn.ghost:hover{background:transparent;color:var(--id);border-color:var(--id);}
+.kpis{display:flex;flex-direction:column;border-left:1px solid var(--hair);}
+.kpi{padding:20px 0 20px 32px;}
+.kpi+.kpi{border-top:1px solid var(--hair);}
+.kpi-num{font-size:clamp(30px,3vw,40px);font-weight:600;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;}
+.kpi-num.fr{color:var(--fr);}
+.kpi-num.id{color:var(--id);}
+.kpi-label{font-size:13px;color:var(--grey);margin-top:7px;max-width:26em;}
+
+/* ---------- map section ---------- */
+#mappa{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
+#mappa h2, #classifiche h2, #vittime h2, #metodo h2{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.6px;margin-bottom:10px;}
+.section-sub{color:var(--grey);font-size:15px;max-width:52em;margin-bottom:34px;}
+.map-grid{display:grid;grid-template-columns:308px 1fr;gap:28px;align-items:start;}
+.sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:22px;}
+.ctrl-label{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;}
+.seg{display:flex;border:1px solid var(--line);}
+.seg button{flex:1;background:transparent;border:none;padding:10px 10px;font-family:inherit;font-size:12.5px;font-weight:600;
+  letter-spacing:.6px;text-transform:uppercase;color:var(--ink);cursor:pointer;border-left:1px solid var(--line);white-space:nowrap;}
+.seg button:first-child{border-left:none;}
+.seg button.on{background:var(--ink);color:var(--bg);}
+.seg.hazard button.on{background:var(--accent,var(--ink));color:var(--bg);}
+.wms-toggle{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.35;cursor:pointer;border:1px solid var(--line);background:var(--card);padding:11px 12px;}
+.wms-toggle input{accent-color:var(--accent,var(--id));width:15px;height:15px;flex-shrink:0;cursor:pointer;}
+#wmsLegend{display:block;margin-top:10px;border:1px solid var(--hair);background:#fff;padding:6px;max-width:100%;}
+#wmsLegend[hidden]{display:none;}
+#legend{border:1px solid var(--hair);background:var(--card);padding:16px 18px;}
+#legend .legend-title{font-size:12.5px;font-weight:600;margin-bottom:12px;line-height:1.4;}
+.legend-row{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--grey);padding:3px 0;font-variant-numeric:tabular-nums;}
+.legend-row i{width:16px;height:16px;flex-shrink:0;border:1px solid rgba(222,231,228,.15);}
+#mapNote{font-size:12.5px;color:var(--grey);margin-top:14px;line-height:1.5;}
+#map{width:100%;height:clamp(440px,72vh,760px);background:var(--mapbg);border:1px solid var(--hair);}
+#map.leaflet-container{font-family:'IBM Plex Sans',sans-serif;background:var(--mapbg);}
+.leaflet-tooltip.atlas-tip{background:var(--card);border:1px solid var(--line);box-shadow:0 4px 16px rgba(0,0,0,.45);
+  color:var(--ink);font-size:13px;padding:9px 12px;white-space:nowrap;}
+.leaflet-tooltip.atlas-tip b{font-size:14px;}
+.leaflet-tooltip.atlas-tip .tip-val{font-variant-numeric:tabular-nums;}
+.leaflet-tooltip-top.atlas-tip::before{border-top-color:var(--line);}
+.leaflet-tooltip-bottom.atlas-tip::before{border-bottom-color:var(--line);}
+.leaflet-tooltip-left.atlas-tip::before{border-left-color:var(--line);}
+.leaflet-tooltip-right.atlas-tip::before{border-right-color:var(--line);}
+.leaflet-bar a{background:var(--card);color:var(--ink);border-bottom:1px solid var(--hair);}
+.leaflet-bar a:hover,.leaflet-bar a:focus{background:var(--hover);color:var(--ink);}
+.leaflet-bar a.leaflet-disabled{background:var(--card);color:var(--line);}
+/* search */
+#search-box{position:relative;}
+#comuneInput{width:100%;padding:11px 12px;border:1px solid var(--line);background:var(--card);font-family:inherit;font-size:14px;color:var(--ink);}
+#comuneInput::placeholder{color:var(--grey);}
+#comuneInput:focus{border-color:var(--id);outline:none;}
+#searchResults{position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--line);border-top:none;z-index:1100;max-height:280px;overflow-y:auto;display:none;}
+#searchResults button{display:block;width:100%;text-align:left;background:none;border:none;border-top:1px solid var(--hair);
+  padding:10px 12px;font-family:inherit;font-size:14px;color:var(--ink);cursor:pointer;}
+#searchResults button:first-child{border-top:none;}
+#searchResults button:hover,#searchResults button.sel{background:var(--hover);}
+#searchResults .sr-prov{color:var(--grey);font-size:12.5px;}
+/* detail card */
+#detailCard{border:1px solid var(--line);background:var(--card);padding:20px;display:none;}
+#detailCard.show{display:block;}
+#detailCard .dc-name{font-size:21px;font-weight:600;line-height:1.15;letter-spacing:-.3px;}
+#detailCard .dc-sub{font-size:12.5px;color:var(--grey);margin-top:3px;margin-bottom:14px;}
+.dc-block{padding:12px 0;border-top:1px solid var(--hair);}
+.dc-block h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:8px;}
+.dc-block h4.fr{color:var(--fr);}
+.dc-block h4.id{color:var(--id);}
+.dc-row{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:2px 0;}
+.dc-row span:last-child{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.dc-bar{height:8px;background:var(--zero);margin:7px 0 3px;position:relative;}
+.dc-bar i{position:absolute;left:0;top:0;bottom:0;display:block;}
+.dc-bar.fr i{background:var(--fr);}
+.dc-bar.id i{background:var(--id);}
+.dc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px;flex-wrap:wrap;}
+.dc-foot a{font-size:13px;font-weight:600;color:var(--id);}
+#dcClose{background:none;border:none;font-family:inherit;font-size:13px;color:var(--grey);cursor:pointer;text-decoration:underline;padding:0;}
+#dcClose:hover{color:var(--ink);}
+
+/* ---------- rankings ---------- */
+#classifiche{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
+.rank-controls{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+.rank-controls .seg{min-width:220px;}
+.rank-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.rank-col h3{font-size:20px;font-weight:600;margin-bottom:4px;letter-spacing:-.2px;}
+.rank-col h3.fr{color:var(--fr);}
+.rank-col h3.id{color:var(--id);}
+.rank-col .rank-sub{font-size:12.5px;color:var(--grey);margin-bottom:18px;}
+.rank-row{display:grid;grid-template-columns:minmax(120px,38%) 1fr max-content;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--hair);}
+.rank-row .rr-name{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-row .rr-name small{color:var(--grey);font-size:11.5px;}
+.rank-row .rr-track{height:10px;position:relative;background:var(--zero);}
+.rank-row .rr-track i{position:absolute;left:0;top:0;bottom:0;display:block;min-width:2px;}
+.rank-row.fr .rr-track i{background:var(--fr);}
+.rank-row.id .rr-track i{background:var(--id);}
+.rank-row .rr-val{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12.5px;font-weight:500;font-variant-numeric:tabular-nums;}
+.rank-note{font-size:12.5px;color:var(--grey);margin-top:16px;max-width:60em;}
+
+/* ---------- vittime ---------- */
+#vittime{background:var(--band);border-bottom:1px solid var(--hair);padding:72px 0;}
+#vittime .vit-grid{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start;}
+#vittime p{margin-top:14px;color:var(--soft);font-size:15.5px;max-width:36em;}
+#vittime p.src{font-size:12.5px;color:var(--grey);margin-top:20px;}
+#vittime p.src a{color:var(--id);font-weight:600;}
+.vit-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;border-left:1px solid var(--hair);border-top:1px solid var(--hair);}
+.vit-stat{border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:26px 26px 22px;background:var(--card);}
+.big-num{font-size:clamp(30px,3vw,40px);font-weight:600;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;}
+.vit-stat .vs-label{font-size:13px;color:var(--grey);margin-top:8px;line-height:1.45;}
+.vit-stat .vs-split{font-size:12px;color:var(--grey);margin-top:10px;padding-top:8px;border-top:1px solid var(--hair);font-variant-numeric:tabular-nums;}
+.vit-stat .vs-split b.fr{color:var(--fr);font-weight:600;}
+.vit-stat .vs-split b.id{color:var(--id);font-weight:600;}
+
+/* ---------- metodo & fonti ---------- */
+#metodo{padding:64px 0 72px;}
+.met-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:8px;}
+.met-col h3{font-size:19px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
+.met-col p{font-size:14.5px;color:var(--soft);margin-bottom:12px;max-width:44em;}
+.met-col p b{font-weight:600;color:var(--ink);}
+.met-col .fonte{border:1px solid var(--hair);background:var(--card);padding:16px 18px;margin-bottom:12px;}
+.met-col .fonte a{font-weight:600;color:var(--id);text-decoration:none;border-bottom:1px solid currentColor;}
+.met-col .fonte a:hover{color:var(--id-hi);}
+.met-col .fonte .f-name{font-size:14.5px;font-weight:600;}
+.met-col .fonte .f-desc{font-size:13px;color:var(--grey);margin-top:4px;line-height:1.5;}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--hair);background:var(--bg);}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:26px;padding-bottom:26px;flex-wrap:wrap;font-size:13.5px;color:var(--grey);}
+footer a{color:var(--ink);font-weight:600;}
+footer .kofi{border:1px solid var(--line);padding:9px 18px;text-decoration:none;font-size:12.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
+footer .kofi:hover{color:var(--id);border-color:var(--id);}
+
+/* ---------- responsive ---------- */
+@media (max-width:1020px){
+  header.hero .wrap{grid-template-columns:1fr;gap:36px;}
+  .kpis{border-left:none;border-top:1px solid var(--hair);flex-direction:row;}
+  .kpi{flex:1;padding:20px 18px 0 0;}
+  .kpi+.kpi{border-top:none;border-left:1px solid var(--hair);padding-left:18px;}
+  .map-grid{grid-template-columns:1fr;}
+  .sidebar{position:static;}
+  #map{height:62vh;}
+  .rank-grid{grid-template-columns:1fr;}
+  #vittime .vit-grid{grid-template-columns:1fr;gap:32px;}
+  .met-grid{grid-template-columns:1fr;}
+}
+@media (max-width:620px){
+  .kpis{flex-direction:column;}
+  .kpi{padding:16px 0 12px;}
+  .kpi+.kpi{border-left:none;border-top:1px solid var(--hair);padding-left:0;}
+  #topnav nav{gap:16px;}
+  .vit-stats{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:no-preference){
+  .rank-row .rr-track i{transition:width .5s cubic-bezier(.16,1,.3,1);}
+}
+</style>
+<script data-goatcounter="https://jacopo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<div id="topnav">
+  <div class="wrap">
+    <a class="brand" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 C32 6 51 30 51 40 A19 19 0 1 1 13 40 C13 30 32 6 32 6 Z" fill="none" stroke="#4FC6CE" stroke-width="4"/><path d="M32 24 C32 24 40.5 34.7 40.5 39.2 A8.5 8.5 0 1 1 23.5 39.2 C23.5 34.7 32 24 32 24 Z" fill="#4FC6CE"/></svg>
+      <span>italia<em>fragile</em></span>
+    </a>
+    <nav id="topnavLinks">
+      <a href="#mappa">Mappa</a>
+      <a href="#classifiche">Classifiche</a>
+      <a href="#vittime">Le vittime</a>
+      <a href="#metodo">Metodo e fonti</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Atlante del dissesto idrogeologico</div>
+      <h1>L'Italia che <span class="fr-word">frana</span>,<br>l'Italia che <em>si allaga</em>.</h1>
+      <p class="standfirst">Nove comuni su dieci convivono con frane o alluvioni. Un atlante per leggere il rischio, comune per comune.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#mappa">Esplora la mappa</a>
+        <a class="btn ghost" href="#metodo">Come leggere i dati</a>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-num fr" data-count="1284960">0</div>
+        <div class="kpi-label">persone residenti in aree a pericolosità da frana elevata o molto elevata</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num id" data-count="6818375">0</div>
+        <div class="kpi-label">persone in aree alluvionabili nello scenario medio</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="kpiComuni">94%</div>
+        <div class="kpi-label">dei comuni italiani ha aree a pericolosità da frana o alluvione</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="mappa">
+  <div class="wrap">
+    <h2>La mappa del rischio</h2>
+    <p class="section-sub">Scegli il fenomeno e l'indicatore, poi muoviti sulla mappa: dalle regioni si scende alle province e ai 7.899 comuni. Clicca un'area per i dettagli, cerca il tuo comune, o attiva il dettaglio locale per vedere le aree reali delle mosaicature ISPRA, fin sotto il livello comunale.</p>
+    <div class="map-grid">
+      <aside class="sidebar" aria-label="Controlli della mappa">
+        <div>
+          <div class="ctrl-label">Fenomeno</div>
+          <div class="seg hazard" id="segHazard" role="group">
+            <button data-v="fr" class="on">Frane</button>
+            <button data-v="id">Alluvioni</button>
+          </div>
+        </div>
+        <div>
+          <div class="ctrl-label">Indicatore</div>
+          <div class="seg" id="segMetric" role="group">
+            <button data-v="area" class="on">Territorio</button>
+            <button data-v="popp">% Persone</button>
+            <button data-v="pop">Persone</button>
+          </div>
+        </div>
+        <div>
+          <div class="ctrl-label">Dettaglio</div>
+          <div class="seg" id="segLevel" role="group">
+            <button data-v="reg" class="on">Regioni</button>
+            <button data-v="prov">Province</button>
+            <button data-v="com">Comuni</button>
+          </div>
+        </div>
+        <div>
+          <div class="ctrl-label">Dettaglio locale</div>
+          <label class="wms-toggle" for="wmsToggle">
+            <input type="checkbox" id="wmsToggle">
+            Aree reali della mosaicatura ISPRA
+          </label>
+          <img id="wmsLegend" alt="Legenda della mosaicatura di pericolosità ISPRA" hidden>
+        </div>
+        <div id="search-box">
+          <div class="ctrl-label"><label for="comuneInput">Cerca il tuo comune</label></div>
+          <input id="comuneInput" type="text" placeholder="Es. Sarno, Vernazza, Bologna" autocomplete="off">
+          <div id="searchResults"></div>
+        </div>
+        <div id="detailCard" aria-live="polite"></div>
+        <div id="legend"></div>
+      </aside>
+      <div>
+        <div id="map" role="application" aria-label="Mappa coropletica del rischio idrogeologico"></div>
+        <p id="mapNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="classifiche">
+  <div class="wrap">
+    <h2>Le classifiche</h2>
+    <p class="section-sub">Dove il rischio pesa di più: le graduatorie di province e comuni per persone esposte, in valore assoluto o in rapporto alla popolazione.</p>
+    <div class="rank-controls">
+      <div class="seg" id="segRankLevel" role="group">
+        <button data-v="prov" class="on">Province</button>
+        <button data-v="com">Comuni</button>
+      </div>
+      <div class="seg" id="segRankMetric" role="group">
+        <button data-v="abs" class="on">Persone</button>
+        <button data-v="pct">% popolazione</button>
+      </div>
+    </div>
+    <div class="rank-grid">
+      <div class="rank-col">
+        <h3 class="fr">Frane</h3>
+        <div class="rank-sub">Popolazione in aree a pericolosità elevata o molto elevata</div>
+        <div id="rankFr"></div>
+      </div>
+      <div class="rank-col">
+        <h3 class="id">Alluvioni</h3>
+        <div class="rank-sub">Popolazione in aree alluvionabili, scenario medio</div>
+        <div id="rankId"></div>
+      </div>
+    </div>
+    <p class="rank-note" id="rankNote"></p>
+  </div>
+</section>
+
+<section id="vittime">
+  <div class="wrap vit-grid">
+    <div>
+      <h2>Il prezzo pagato alle frane e alle acque</h2>
+      <p>Dietro le percentuali ci sono paesi evacuati nella notte, strade cancellate, persone che non sono tornate a casa. Il CNR-IRPI ricostruisce da decenni l'impatto diretto di frane e inondazioni sulla popolazione italiana.</p>
+      <p>I numeri qui accanto vengono dal Rapporto Periodico Polaris e riguardano gli eventi con vittime documentati sul territorio nazionale.</p>
+      <p class="src">Fonte: CNR-IRPI, <a href="https://polaris.irpi.cnr.it/report/" target="_blank" rel="noopener">Rapporto Periodico Polaris, Anno 2024</a> (DOI 10.30437/REPORT2024).</p>
+    </div>
+    <div class="vit-stats">
+      <div class="vit-stat">
+        <div class="big-num">1.616</div>
+        <div class="vs-label">morti per frane e inondazioni in Italia dal 1974 al 2023</div>
+        <div class="vs-split"><b class="fr">1.060 per frana</b> · <b class="id">556 per inondazione</b></div>
+      </div>
+      <div class="vit-stat">
+        <div class="big-num">334.245</div>
+        <div class="vs-label">evacuati e senzatetto nello stesso mezzo secolo</div>
+        <div class="vs-split">2.210 comuni colpiti in tutte le 20 regioni</div>
+      </div>
+      <div class="vit-stat">
+        <div class="big-num">16</div>
+        <div class="vs-label">morti nel solo 2024, più 3 dispersi e 19 feriti</div>
+        <div class="vs-split"><b class="fr">5 per frana</b> · <b class="id">11 per inondazione</b></div>
+      </div>
+      <div class="vit-stat">
+        <div class="big-num">7.333</div>
+        <div class="vs-label">evacuati e senzatetto nel 2024, in 149 comuni di 17 regioni</div>
+        <div class="vs-split"><b class="fr">804 per frana</b> · <b class="id">6.529 per inondazione</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap">
+    <h2>Metodo e fonti</h2>
+    <div class="met-grid">
+      <div class="met-col">
+        <h3>Come leggere i dati</h3>
+        <p><b>Frane.</b> Le aree classificate a pericolosità <b>elevata (P3) e molto elevata (P4)</b> nei Piani di assetto idrogeologico, mosaicate a scala nazionale da ISPRA. È l'indicatore usato per territorio, popolazione ed edifici esposti.</p>
+        <p><b>Alluvioni.</b> Le aree allagabili nello <b>scenario di pericolosità media (P2)</b>: alluvioni con tempo di ritorno fra 100 e 200 anni, secondo la Direttiva europea 2007/60.</p>
+        <p><b>Le persone.</b> La popolazione esposta è quella residente nelle aree pericolose secondo il censimento ISTAT più recente disponibile sulla piattaforma. Non è una previsione: è una fotografia di chi abita oggi in zone classificate pericolose.</p>
+        <p><b>Il dettaglio locale.</b> L'interruttore "aree reali" sovrappone alla mappa le mosaicature ISPRA così come pubblicate, via servizio WMS di IdroGEO: è il dettaglio sub-comunale delle aree classificate, e si attiva da solo quando cerchi un comune.</p>
+        <p><b>I limiti.</b> Le mosaicature aggregano piani redatti in tempi e con criteri diversi dalle Autorità di bacino distrettuali; i confini sono generalizzati per la visualizzazione. Per gli usi ufficiali fa fede la cartografia delle Autorità competenti.</p>
+      </div>
+      <div class="met-col">
+        <h3>Fonti aperte</h3>
+        <div class="fonte">
+          <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
+          <div class="f-desc">Piattaforma nazionale sul dissesto idrogeologico: mosaicature di pericolosità e indicatori di rischio per tutti i comuni italiani, con API aperta e dati in licenza CC-BY 4.0.</div>
+        </div>
+        <div class="fonte">
+          <div class="f-name"><a href="https://polaris.irpi.cnr.it/" target="_blank" rel="noopener">CNR-IRPI Polaris</a></div>
+          <div class="f-desc">Rapporti periodici sul rischio posto alla popolazione italiana da frane e inondazioni: vittime, feriti, evacuati, dal 1974 a oggi.</div>
+        </div>
+        <div class="fonte">
+          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">Confini amministrativi ISTAT</a></div>
+          <div class="f-desc">Geometrie di regioni e province in GeoJSON, derivate ISTAT, semplificate per il web (via openpolis).</div>
+        </div>
+        <div class="fonte">
+          <div class="f-name"><a href="https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio/dissesto-idrogeologico" target="_blank" rel="noopener">ISPRA, Rapporto sul dissesto idrogeologico in Italia</a></div>
+          <div class="f-desc">Il rapporto nazionale su pericolosità e indicatori di rischio: il contesto scientifico dietro questi numeri.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Dati: ISPRA IdroGEO e CNR-IRPI Polaris (CC-BY). Made with 💙 by <a href="https://www.linkedin.com/in/jacopo-ottaviani/" target="_blank" rel="noopener">Jacopo Ottaviani</a>.</span>
+    <a class="kofi" href="https://ko-fi.com/jacopoottaviani" target="_blank" rel="noopener">Offrimi un caffè ☕️</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="data.js"></script>
+<script>
+"use strict";
+/* ============================== stato & costanti ============================== */
+const RAMP = {
+  fr: ["#33301F","#5C4A26","#85652E","#AE8036","#D69A3F"],
+  id: ["#1E3A40","#2A5D64","#367F88","#42A2AB","#4FC6CE"]
+};
+const ZERO = "#1B2E35";
+const ACCENT = {fr:"#D69A3F", id:"#4FC6CE"};
+const HAZ_NAME = {fr:"frane", id:"alluvioni"};
+const METRIC_DEF = {
+  area:{lab:"% del territorio in aree pericolose", short:"territorio", fmt:v=>fmtPct(v)},
+  popp:{lab:"% della popolazione residente in aree pericolose", short:"% persone", fmt:v=>fmtPct(v)},
+  pop:{lab:"persone residenti in aree pericolose", short:"persone", fmt:v=>fmtInt(v)}
+};
+// indici dell'array COMUNI
+const C = {ID:0,NOME:1,SIGLA:2,PROV:3,EXT:4,POP:5,FP:6,FPOP:7,FPOPP:8,IP:9,IPOP:10,IPOPP:11,FA:12,IA:13,FED:14,IED:15,I3POP:16,AR:17};
+
+const state = {hazard:"fr", metric:"area", level:"reg"};
+const $ = id => document.getElementById(id);
+const fmtInt = n => (n==null?"n.d.":Math.round(n).toLocaleString("it-IT"));
+const fmtPct = n => (n==null?"n.d.":n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1})+"%");
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+
+document.documentElement.style.setProperty("--accent", ACCENT.fr);
+
+/* ============================== valori & classi =============================== */
+function entityValue(ind, hazard, metric){
+  if(!ind) return null;
+  if(hazard==="fr") return metric==="area"?ind.fp: metric==="popp"?ind.fpop_p: ind.fpop;
+  return metric==="area"?ind.ip: metric==="popp"?ind.ipop_p: ind.ipop;
+}
+function currentIndex(){ return state.level==="reg" ? IND_REG : IND_PROV; }
+
+// indice comuni per pro_com (per choropleth comunale, ricerca e schede)
+const INDEX_COM = {};
+for(const c of COMUNI) INDEX_COM[c[C.ID]] = c;
+function comValue(c, hazard, metric){
+  if(!c) return null;
+  if(hazard==="fr") return metric==="area"?c[C.FP]: metric==="popp"?c[C.FPOPP]: c[C.FPOP];
+  return metric==="area"?c[C.IP]: metric==="popp"?c[C.IPOPP]: c[C.IPOP];
+}
+function valueForFeature(props){
+  if(state.level==="com") return comValue(INDEX_COM[props.cod], state.hazard, state.metric);
+  return entityValue(currentIndex()[String(props.cod)], state.hazard, state.metric);
+}
+
+let bins = [];
+function computeBins(){
+  const vals = state.level==="com"
+    ? COMUNI.map(c=>comValue(c,state.hazard,state.metric)).filter(v=>v>0).sort((a,b)=>a-b)
+    : Object.values(currentIndex()).map(d=>entityValue(d,state.hazard,state.metric)).filter(v=>v>0).sort((a,b)=>a-b);
+  bins = [1,2,3,4].map(k=>vals[Math.min(vals.length-1, Math.floor(vals.length*k/5))]);
+}
+function colorFor(v){
+  if(v==null || v<=0) return ZERO;
+  const ramp = RAMP[state.hazard];
+  for(let i=0;i<4;i++){ if(v<=bins[i]) return ramp[i]; }
+  return ramp[4];
+}
+
+/* ============================== mappa ============================== */
+const ITALY_BOUNDS = L.latLngBounds([35.3,6.5],[47.3,18.7]);
+const map = L.map("map",{
+  attributionControl:false, zoomControl:true, scrollWheelZoom:false,
+  zoomSnap:.25, minZoom:5, maxZoom:16, maxBounds:ITALY_BOUNDS.pad(.35)
+});
+map.fitBounds(ITALY_BOUNDS);
+map.on("click focus", ()=>map.scrollWheelZoom.enable());
+map.on("blur mouseout", ()=>map.scrollWheelZoom.disable());
+
+let geoLayer = null, comuneMarker = null;
+let GEO_COM = null, loadingCom = false;
+const comuniRenderer = L.canvas({padding:.3});
+
+/* WMS: mosaicature nazionali di pericolosita' ISPRA (dettaglio sub-comunale) */
+const WMS_URL = "https://idrogeo.isprambiente.it/geoserver/idrogeo/wms";
+const WMS_LAYERS = {fr:"idrogeo:pericolosita_frane", id:"idrogeo:pericolosita_alluvioni"};
+let wmsLayer = null;
+function wmsOn(){ return !!wmsLayer; }
+function setWms(on){
+  $("wmsToggle").checked = on;
+  if(wmsLayer){ map.removeLayer(wmsLayer); wmsLayer = null; }
+  if(on){
+    wmsLayer = L.tileLayer.wms(WMS_URL,{
+      layers: WMS_LAYERS[state.hazard], format:"image/png", transparent:true, opacity:.75, maxZoom:16
+    }).addTo(map);
+  }
+  $("wmsLegend").hidden = !on;
+  if(on) $("wmsLegend").src = WMS_URL+"?REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER="+WMS_LAYERS[state.hazard];
+  if(geoLayer) geoLayer.setStyle(baseStyle);
+  drawNote();
+}
+
+function baseStyle(f){
+  return {
+    fillColor: colorFor(valueForFeature(f.properties)),
+    fillOpacity: wmsOn() ? .12 : 1,
+    color: wmsOn() ? "#4A5E63" : "#0D181D",
+    weight: state.level==="com" ? .5 : 1, opacity: 1
+  };
+}
+function tipFor(props){
+  let nome = props.nome;
+  if(state.level==="com"){
+    const c = INDEX_COM[props.cod];
+    nome = c ? `${c[C.NOME]} (${c[C.SIGLA]})` : "";
+  }
+  const v = valueForFeature(props);
+  return `<b>${nome}</b><br><span class="tip-val">${METRIC_DEF[state.metric].fmt(v)}</span> <span style="color:#8AA1A6">· ${HAZ_NAME[state.hazard]}, ${METRIC_DEF[state.metric].short}</span>`;
+}
+function loadComuni(){
+  if(loadingCom) return;
+  loadingCom = true;
+  $("mapNote").textContent = "Carico i confini dei 7.899 comuni (circa 2 MB)...";
+  fetch("geo_comuni.json").then(r=>r.json()).then(gj=>{
+    GEO_COM = gj; loadingCom = false; drawLayer();
+  }).catch(()=>{ loadingCom = false; $("mapNote").textContent = "Impossibile caricare i confini comunali. Riprova."; });
+}
+function drawLayer(){
+  if(state.level==="com" && !GEO_COM){ loadComuni(); return; }
+  computeBins();
+  if(geoLayer) map.removeLayer(geoLayer);
+  const gj = state.level==="reg" ? GEO_REG : state.level==="prov" ? GEO_PROV : GEO_COM;
+  geoLayer = L.geoJSON(gj,{
+    renderer: state.level==="com" ? comuniRenderer : undefined,
+    style: baseStyle,
+    onEachFeature: (f,l)=>{
+      l.on("mouseover", e=>{ e.target.setStyle({color:"#DEE7E4", weight:1.5}); if(state.level!=="com") e.target.bringToFront(); });
+      l.on("mouseout", e=>{ geoLayer.resetStyle(e.target); });
+      l.on("click", ()=>{
+        if(state.level==="com"){
+          const c = INDEX_COM[f.properties.cod];
+          if(c) showComuneCard(c, l.getBounds());
+        } else {
+          showEntityCard(f.properties);
+          map.fitBounds(l.getBounds().pad(.15));
+        }
+      });
+      l.bindTooltip(()=>tipFor(f.properties), {sticky:true, className:"atlas-tip", direction:"top", opacity:1});
+    }
+  }).addTo(map);
+  drawLegend();
+  drawNote();
+}
+function drawLegend(){
+  const m = METRIC_DEF[state.metric];
+  const ramp = RAMP[state.hazard];
+  const f = state.metric==="pop" ? fmtInt : fmtPct;
+  const rows = [];
+  rows.push(`<div class="legend-row"><i style="background:${ZERO}"></i>nessuna area rilevata</div>`);
+  let prev = 0;
+  for(let i=0;i<4;i++){
+    rows.push(`<div class="legend-row"><i style="background:${ramp[i]}"></i>fino a ${f(bins[i])}</div>`);
+    prev = bins[i];
+  }
+  rows.push(`<div class="legend-row"><i style="background:${ramp[4]}"></i>oltre ${f(prev)}</div>`);
+  $("legend").innerHTML = `<div class="legend-title">${cap(HAZ_NAME[state.hazard])}: ${m.lab}</div>` + rows.join("");
+}
+function drawNote(){
+  const src = state.hazard==="fr"
+    ? "aree a pericolosità da frana elevata e molto elevata (P3 + P4), mosaicatura ISPRA"
+    : "aree a pericolosità idraulica nello scenario medio (P2), mosaicatura ISPRA";
+  const lvl = state.level==="reg"?"regioni italiane":state.level==="prov"?"province italiane":"comuni italiani";
+  let txt = `${cap(lvl)} per ${METRIC_DEF[state.metric].lab}: ${src}. Classi calcolate sui quintili dei valori maggiori di zero. Dati: ISPRA IdroGEO, licenza CC-BY 4.0.`;
+  if(wmsOn()) txt += " In sovrapposizione: le aree reali delle mosaicature nazionali di pericolosità, dal servizio WMS di IdroGEO (ingrandisci per il dettaglio locale).";
+  $("mapNote").textContent = txt;
+}
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+
+/* ============================== schede di dettaglio ============================== */
+function regNameOf(codReg){ const r = IND_REG[String(codReg)]; return r ? r.nome : ""; }
+
+function cardHTML(title, sub, d, idrLink){
+  const frPct = Math.min(100, d.fpop_p||0), idPct = Math.min(100, d.ipop_p||0);
+  return `
+    <div class="dc-name">${title}</div>
+    <div class="dc-sub">${sub} · ${fmtInt(d.pop)} residenti</div>
+    <div class="dc-block">
+      <h4 class="fr">Frane · pericolosità elevata e molto elevata</h4>
+      <div class="dc-row"><span>Territorio</span><span>${fmtPct(d.fp)}</span></div>
+      <div class="dc-row"><span>Persone</span><span>${fmtInt(d.fpop)} (${fmtPct(d.fpop_p)})</span></div>
+      <div class="dc-bar fr" role="img" aria-label="${fmtPct(d.fpop_p)} della popolazione in aree a pericolosità da frana"><i style="width:${frPct}%"></i></div>
+      <div class="dc-row"><span>Edifici</span><span>${fmtInt(d.fed)}</span></div>
+    </div>
+    <div class="dc-block">
+      <h4 class="id">Alluvioni · scenario medio</h4>
+      <div class="dc-row"><span>Territorio</span><span>${fmtPct(d.ip)}</span></div>
+      <div class="dc-row"><span>Persone</span><span>${fmtInt(d.ipop)} (${fmtPct(d.ipop_p)})</span></div>
+      <div class="dc-bar id" role="img" aria-label="${fmtPct(d.ipop_p)} della popolazione in aree alluvionabili"><i style="width:${idPct}%"></i></div>
+      <div class="dc-row"><span>Edifici</span><span>${fmtInt(d.ied)}</span></div>
+    </div>
+    <div class="dc-foot">
+      <a href="${idrLink}" target="_blank" rel="noopener">Approfondisci su IdroGEO</a>
+      <button id="dcClose">Chiudi</button>
+    </div>`;
+}
+function bindCardClose(){
+  const b = $("dcClose");
+  if(b) b.onclick = ()=>{ $("detailCard").classList.remove("show"); clearComuneMarker(); };
+}
+function showEntityCard(props){
+  const ind = currentIndex()[String(props.cod)];
+  if(!ind) return;
+  const sub = state.level==="reg" ? "Regione" : `Provincia · ${regNameOf(ind.reg)}`;
+  $("detailCard").innerHTML = cardHTML(ind.nome, sub, ind, "https://idrogeo.isprambiente.it/app/");
+  $("detailCard").classList.add("show");
+  bindCardClose();
+}
+function showComuneCard(c, boundsFromClick){
+  const prov = IND_PROV[String(c[C.PROV])];
+  const d = {pop:c[C.POP], fp:c[C.FP], fpop:c[C.FPOP], fpop_p:c[C.FPOPP], fed:c[C.FED],
+             ip:c[C.IP], ipop:c[C.IPOP], ipop_p:c[C.IPOPP], ied:c[C.IED]};
+  const sub = `Comune · ${prov?prov.nome:c[C.SIGLA]}, ${prov?regNameOf(prov.reg):""}`;
+  $("detailCard").innerHTML = cardHTML(c[C.NOME], sub, d, "https://idrogeo.isprambiente.it/app/");
+  $("detailCard").classList.add("show");
+  bindCardClose();
+  // zoom sulla mappa + dettaglio locale (WMS) per vedere le aree reali
+  const e = c[C.EXT];
+  let b = boundsFromClick;
+  if(!b && e && (e[0]||e[2])) b = L.latLngBounds([e[1],e[0]],[e[3],e[2]]).pad(1.6);
+  if(b){
+    map.fitBounds(b, {maxZoom: 11.5});
+    clearComuneMarker();
+    if(!boundsFromClick){
+      comuneMarker = L.circleMarker(b.getCenter(),{radius:7,color:"#DEE7E4",weight:2,fillColor:ACCENT[state.hazard],fillOpacity:1})
+        .addTo(map).bindTooltip(`<b>${c[C.NOME]}</b>`,{className:"atlas-tip",direction:"top",opacity:1});
+    }
+  }
+  if(!wmsOn()) setWms(true);
+}
+function clearComuneMarker(){ if(comuneMarker){ map.removeLayer(comuneMarker); comuneMarker=null; } }
+
+/* ============================== ricerca comuni ============================== */
+const input = $("comuneInput"), resBox = $("searchResults");
+let selIdx = -1, curResults = [];
+input.addEventListener("input", ()=>{
+  const q = norm(input.value.trim());
+  selIdx = -1;
+  if(q.length<2){ resBox.style.display="none"; return; }
+  curResults = [];
+  for(const c of COMUNI){
+    const n = norm(c[C.NOME]);
+    if(n.startsWith(q)) curResults.push([0,c]);
+    else if(n.includes(q)) curResults.push([1,c]);
+    if(curResults.length>60) break;
+  }
+  curResults.sort((a,b)=>a[0]-b[0] || b[1][C.POP]-a[1][C.POP]);
+  curResults = curResults.slice(0,8).map(x=>x[1]);
+  if(!curResults.length){ resBox.style.display="none"; return; }
+  resBox.innerHTML = curResults.map((c,i)=>
+    `<button data-i="${i}">${c[C.NOME]} <span class="sr-prov">(${c[C.SIGLA]}) · ${fmtInt(c[C.POP])} ab.</span></button>`).join("");
+  resBox.style.display="block";
+  resBox.querySelectorAll("button").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+});
+input.addEventListener("keydown", e=>{
+  if(resBox.style.display==="none") return;
+  const btns = resBox.querySelectorAll("button");
+  if(e.key==="ArrowDown"){ e.preventDefault(); selIdx=Math.min(btns.length-1,selIdx+1); mark(btns); }
+  else if(e.key==="ArrowUp"){ e.preventDefault(); selIdx=Math.max(0,selIdx-1); mark(btns); }
+  else if(e.key==="Enter"){ e.preventDefault(); pick(selIdx>=0?selIdx:0); }
+  else if(e.key==="Escape"){ resBox.style.display="none"; }
+});
+function mark(btns){ btns.forEach((b,i)=>b.classList.toggle("sel",i===selIdx)); }
+function pick(i){
+  const c = curResults[i]; if(!c) return;
+  input.value = c[C.NOME];
+  resBox.style.display="none";
+  showComuneCard(c);
+}
+document.addEventListener("click", e=>{ if(!$("search-box").contains(e.target)) resBox.style.display="none"; });
+
+/* ============================== controlli segmentati ============================== */
+function segInit(id, onPick){
+  $(id).querySelectorAll("button").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      $(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on");
+      onPick(b.dataset.v);
+    });
+  });
+}
+segInit("segHazard", v=>{ state.hazard=v; document.documentElement.style.setProperty("--accent",ACCENT[v]); if(wmsOn()) setWms(true); drawLayer(); });
+segInit("segMetric", v=>{ state.metric=v; drawLayer(); });
+segInit("segLevel", v=>{ state.level=v; $("detailCard").classList.remove("show"); drawLayer(); });
+$("wmsToggle").addEventListener("change", e=>setWms(e.target.checked));
+
+/* ============================== classifiche ============================== */
+const rank = {level:"prov", metric:"abs"};
+segInit("segRankLevel", v=>{ rank.level=v; drawRanks(); });
+segInit("segRankMetric", v=>{ rank.metric=v; drawRanks(); });
+
+function rankData(hazard){
+  if(rank.level==="prov"){
+    return Object.values(IND_PROV).map(p=>({
+      name:p.nome, extra:regNameOf(p.reg),
+      val: hazard==="fr" ? (rank.metric==="abs"?p.fpop:p.fpop_p) : (rank.metric==="abs"?p.ipop:p.ipop_p)
+    }));
+  }
+  const min = rank.metric==="pct" ? 5000 : 0;
+  return COMUNI.filter(c=>c[C.POP]>=min).map(c=>({
+    name:c[C.NOME], extra:c[C.SIGLA],
+    val: hazard==="fr" ? (rank.metric==="abs"?c[C.FPOP]:c[C.FPOPP]) : (rank.metric==="abs"?c[C.IPOP]:c[C.IPOPP])
+  }));
+}
+function drawRanks(){
+  const f = rank.metric==="abs" ? fmtInt : fmtPct;
+  for(const hazard of ["fr","id"]){
+    const rows = rankData(hazard).sort((a,b)=>b.val-a.val).slice(0,12);
+    const max = rows[0] ? rows[0].val : 1;
+    $(hazard==="fr"?"rankFr":"rankId").innerHTML = rows.map(r=>`
+      <div class="rank-row ${hazard}">
+        <div class="rr-name" title="${r.name}">${r.name} <small>${r.extra}</small></div>
+        <div class="rr-track"><i style="width:${Math.max(1,r.val/max*100)}%"></i></div>
+        <div class="rr-val">${f(r.val)}</div>
+      </div>`).join("");
+  }
+  $("rankNote").textContent = rank.level==="com" && rank.metric==="pct"
+    ? "Classifica dei comuni con almeno 5.000 residenti, per evitare che i piccolissimi centri dominino la graduatoria percentuale. Dati: ISPRA IdroGEO."
+    : (rank.level==="com" ? "Tutti i 7.899 comuni italiani. Dati: ISPRA IdroGEO." : "Le 107 province e città metropolitane. Dati: ISPRA IdroGEO.");
+}
+
+/* ============================== KPI counter ============================== */
+function animateCounters(){
+  const els = document.querySelectorAll("[data-count]");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  els.forEach(el=>{
+    const target = +el.dataset.count;
+    if(reduce){ el.textContent = fmtInt(target); return; }
+    const t0 = performance.now(), dur = 1100;
+    const step = t=>{
+      const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
+      el.textContent = fmtInt(target*e);
+      if(k<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+  const pct = (STATS.n_comuni_rischio/STATS.n_comuni*100);
+  $("kpiComuni").textContent = pct.toLocaleString("it-IT",{maximumFractionDigits:0})+"%";
+}
+
+/* ============================== nav attiva ============================== */
+const navLinks = document.querySelectorAll("#topnavLinks a");
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      navLinks.forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#"+en.target.id));
+    }
+  });
+},{rootMargin:"-40% 0px -55% 0px"});
+["mappa","classifiche","vittime","metodo"].forEach(id=>obs.observe($(id)));
+
+/* ============================== avvio ============================== */
+drawLayer();
+drawRanks();
+animateCounters();
+</script>
+</body>
+</html>
