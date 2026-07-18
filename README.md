@@ -15,12 +15,14 @@ Sito statico di data journalism sul rischio frane e alluvioni in Italia, comune 
 - `geo_comuni.json` — confini dei 7.899 comuni (semplificati), caricati on demand dal livello "Comuni"
 - `scripts/` — pipeline dati: `prepare_geo.sh` (confini via mapshaper) e `build_data.py` (indicatori IdroGEO)
 - `robots.txt`, `sitemap.xml`, `llms.txt` — file per motori di ricerca e crawler AI
+- `og-image.png`, `og-image-en.png` — anteprima 1200×630 per la condivisione social (WhatsApp, Instagram DM, X, ecc.)
 
 ## SEO
-Le pagine includono canonical, hreflang, Open Graph/Twitter card e dati strutturati JSON-LD
-(WebSite, Person, Dataset, FAQPage). Gli URL assoluti usano il dominio `https://italiafragile.it`:
-se il sito viene pubblicato su un dominio diverso, sostituirlo in `index.html`, `en/index.html`,
-`robots.txt`, `sitemap.xml` e `llms.txt` (es. `grep -rl 'italiafragile.it' . | xargs sed -i '' 's|italiafragile.it|NUOVODOMINIO|g'`).
+Le pagine includono canonical, hreflang, Open Graph/Twitter card (con anteprima `og-image.png` /
+`og-image-en.png`) e dati strutturati JSON-LD (WebSite, Person, Dataset, FAQPage). Gli URL assoluti
+puntano a `https://jacopoottaviani.com/italia-fragile/` (IT) e `.../italia-fragile/en/` (EN).
+Se il sito cambia indirizzo, aggiornare `index.html`, `en/index.html`, `robots.txt`, `sitemap.xml`
+e `llms.txt` (es. `grep -rl 'jacopoottaviani.com/italia-fragile' . | xargs sed -i '' 's|jacopoottaviani.com/italia-fragile|NUOVOINDIRIZZO|g'`).
 
 ## Build dei dati
 ```bash

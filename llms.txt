@@ -11,8 +11,8 @@ Key facts the site documents:
 
 ## Pages
 
-- [Italian version](https://italiafragile.it/): map, rankings, victims, costs, method & sources, about, FAQ
-- [English version](https://italiafragile.it/en/): same structure and data in English
+- [Italian version](https://jacopoottaviani.com/italia-fragile/): map, rankings, victims, costs, method & sources, about, FAQ
+- [English version](https://jacopoottaviani.com/italia-fragile/en/): same structure and data in English
 
 ## Data sources
 
