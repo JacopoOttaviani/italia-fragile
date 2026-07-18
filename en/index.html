@@ -70,17 +70,22 @@ section{scroll-margin-top:76px;}
 /* ---------- hero ---------- */
 header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--hair);
   background:radial-gradient(1000px 560px at 76% 24%, rgba(79,198,206,.07), transparent 65%) var(--bg);}
-header.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+header.hero::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
   background-image:linear-gradient(rgba(222,231,228,.03) 1px,transparent 1px),
     linear-gradient(90deg,rgba(222,231,228,.03) 1px,transparent 1px);
   background-size:56px 56px;
   -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.2));
   mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.2));}
-.hero-bg{position:absolute;inset:0;pointer-events:none;}
-.hero-bg svg{position:absolute;right:-140px;top:50%;transform:translateY(-50%);width:760px;height:760px;}
+.hero-video{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+.hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);
+  filter:grayscale(1) sepia(1) hue-rotate(140deg) saturate(2.4) brightness(.42) contrast(1.2);opacity:.55;}
+.hero-video::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(13,24,29,.88) 0%, rgba(13,24,29,.45) 60%, rgba(13,24,29,.25) 100%),
+    linear-gradient(to bottom, rgba(13,24,29,.2), rgba(13,24,29,.92));}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none;}}
 .hero-coords{position:absolute;right:28px;bottom:16px;font-family:'IBM Plex Mono',ui-monospace,monospace;
-  font-size:10px;letter-spacing:.14em;color:var(--grey);opacity:.55;pointer-events:none;}
-header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;gap:64px;padding-top:84px;padding-bottom:76px;align-items:end;}
+  font-size:10px;letter-spacing:.14em;color:var(--grey);opacity:.55;pointer-events:none;z-index:5;}
+header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns:7fr 4fr;gap:64px;padding-top:84px;padding-bottom:76px;align-items:end;}
 .kicker{font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--id);margin-bottom:22px;}
 .hero h1{font-size:clamp(38px,5vw,66px);font-weight:600;line-height:1.06;letter-spacing:-1.2px;}
 .hero h1 em{font-style:italic;font-weight:600;color:var(--id);}
@@ -301,7 +306,6 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 /* ---------- responsive ---------- */
 @media (max-width:1020px){
   header.hero .wrap{grid-template-columns:1fr;gap:36px;}
-  .hero-bg svg{right:-320px;opacity:.55;}
   .hero-coords{display:none;}
   .kpis{border-left:none;border-top:1px solid var(--hair);flex-direction:row;}
   .kpi{flex:1;padding:20px 18px 0 0;}
@@ -446,17 +450,8 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 </div>
 
 <header class="hero">
-  <div class="hero-bg" aria-hidden="true">
-    <svg viewBox="0 0 100 100">
-      <g fill="none" stroke="#4FC6CE">
-        <g opacity=".05"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-        <g opacity=".065" transform="translate(50 62) scale(.8) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-        <g opacity=".08" transform="translate(50 62) scale(.62) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-        <g opacity=".095" transform="translate(50 62) scale(.46) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-        <g opacity=".11" transform="translate(50 62) scale(.32) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-        <g opacity=".13" transform="translate(50 62) scale(.2) translate(-50 -62)"><path d="M50 8 C50 8 80 46 80 62 A30 30 0 1 1 20 62 C20 46 50 8 50 8 Z" vector-effect="non-scaling-stroke"/></g>
-      </g>
-    </svg>
+  <div class="hero-video" aria-hidden="true">
+    <video src="../assets/hero-loop.mp4" autoplay muted loop playsinline></video>
   </div>
   <div class="hero-coords" aria-hidden="true">41.8919 N &middot; 12.5113 E</div>
   <div class="wrap">
@@ -712,7 +707,7 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       </div>
     </div>
 
-    <p class="src">Sources: <a href="https://www.anceemilia.it/ance-cresme-presentati-i-dati-del-2-rapporto-lo-stato-di-rischio-del-territorio-italiano-2023-sul-dissesto-idrogeologico-e-consumo-del-suolo/" target="_blank" rel="noopener">ANCE-CRESME, The state of risk of the Italian territory (2023, in Italian)</a> · <a href="https://www.rendis.isprambiente.it/rendisweb/" target="_blank" rel="noopener">ISPRA, National Registry of Soil Protection Works (ReNDiS) – 2025 report</a> · <a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – European Commission (2023)</a> · <a href="https://protezionecivile.regione.emilia-romagna.it/notizie-in-evidenza/alluvione-oltre-8-8-miliardi-di-euro-la-stima-provvisoria-dei-danni-di-cui-1-8-per-interventi-necessari-a-fare-fronte-emergenza" target="_blank" rel="noopener">Emilia-Romagna Region, provisional damage estimate (June 2023, in Italian)</a> · <a href="https://www.ilfattoquotidiano.it/2026/04/02/alluvioni-frane-italia-19miliardi-danni-notizie/8342662/" target="_blank" rel="noopener">Greenpeace Italy on Civil Protection Department data (2026, in Italian)</a>.</p>
+    <p class="src">Sources: ANCE-CRESME, ISPRA ReNDiS, JRC, Emilia-Romagna Region, Greenpeace Italy — full references and links under <a href="#progetto">Data sources</a>.</p>
   </div>
 </section>
 
@@ -781,6 +776,14 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
         <div class="fonte">
           <div class="f-name"><a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – European Commission</a></div>
           <div class="f-desc">The estimate of the return on prevention investments (Dottori et al., <em>Nature Climate Change</em>, 2023): up to 4 euros of avoided damage for every euro invested.</div>
+        </div>
+        <div class="fonte">
+          <div class="f-name"><a href="https://protezionecivile.regione.emilia-romagna.it/notizie-in-evidenza/alluvione-oltre-8-8-miliardi-di-euro-la-stima-provvisoria-dei-danni-di-cui-1-8-per-interventi-necessari-a-fare-fronte-emergenza" target="_blank" rel="noopener">Emilia-Romagna Region</a></div>
+          <div class="f-desc">The provisional damage estimate for the May 2023 flood in Emilia-Romagna: over €8.8 billion (June 2023, in Italian).</div>
+        </div>
+        <div class="fonte">
+          <div class="f-name"><a href="https://www.ilfattoquotidiano.it/2026/04/02/alluvioni-frane-italia-19miliardi-danni-notizie/8342662/" target="_blank" rel="noopener">Greenpeace Italy</a></div>
+          <div class="f-desc">The analysis of Civil Protection Department data (2026, in Italian): over €19 billion of recognised damage between 2015 and 2024, only 17% of which was covered by public compensation.</div>
         </div>
       </div>
       <div>
