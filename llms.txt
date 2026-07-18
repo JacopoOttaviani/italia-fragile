@@ -23,7 +23,7 @@ Key facts the site documents:
 
 ## Author
 
-Independent data journalism project by [Jacopo Ottaviani](https://jacopoottaviani.com/), data journalist and computer scientist, Chief Data Officer at Code for Africa, ICFJ Knight Fellow.
+Independent data journalism project by [Jacopo Ottaviani](https://jacopoottaviani.com/), data journalist and computer scientist.
 
 ## Reuse
 
