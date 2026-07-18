@@ -108,7 +108,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 
 /* ---------- map section ---------- */
 #mappa{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
-#mappa h2, #classifiche h2, #vittime h2, #costi h2, #metodo h2, #progetto h2, #faq h2{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.6px;margin-bottom:10px;}
+#mappa h2, #classifiche h2, #vittime h2, #costi h2, #metodo h2, #progetto h2{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.6px;margin-bottom:10px;}
 .section-sub{color:var(--grey);font-size:15px;max-width:52em;margin-bottom:34px;}
 .map-grid{display:grid;grid-template-columns:308px 1fr;gap:28px;align-items:start;}
 .sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:22px;}
@@ -121,7 +121,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 .seg.hazard button.on{background:var(--accent,var(--ink));color:var(--bg);}
 .wms-toggle{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.35;cursor:pointer;border:1px solid var(--line);background:var(--card);padding:11px 12px;}
 .wms-toggle input{accent-color:var(--accent,var(--id));width:15px;height:15px;flex-shrink:0;cursor:pointer;}
-#wmsLegend{display:block;margin-top:10px;border:1px solid var(--hair);background:#fff;padding:6px;max-width:100%;}
+#wmsLegend{margin-top:10px;border:1px solid var(--hair);background:var(--card);padding:8px 12px;}
 #wmsLegend[hidden]{display:none;}
 #legend{border:1px solid var(--hair);background:var(--card);padding:16px 18px;}
 #legend .legend-title{font-size:12.5px;font-weight:600;margin-bottom:12px;line-height:1.4;}
@@ -254,7 +254,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 .cost-roi h3{font-size:19px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
 .cost-roi .roi-text p{color:var(--soft);font-size:15.5px;margin-bottom:14px;max-width:44em;}
 .cost-roi .roi-text p b{color:var(--ink);font-weight:600;}
-#costi p.src{font-size:12.5px;color:var(--grey);margin-top:38px;max-width:70em;}
+#costi p.src{font-size:12.5px;color:var(--grey);margin-bottom:34px;max-width:70em;}
 #costi p.src a{color:var(--id);font-weight:600;}
 
 /* ---------- metodo & fonti ---------- */
@@ -277,6 +277,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 .mission-logo{flex:0 0 auto;width:132px;height:132px;}
 @media (max-width:760px){.mission-logo{display:none;}}
 .about-grid{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start;}
+#fonti-dati{scroll-margin-top:76px;}
 .about-grid h3{font-size:19px;font-weight:600;margin-bottom:14px;letter-spacing:-.2px;}
 .bio-card{border:1px solid var(--hair);background:var(--card);padding:26px;}
 .bio-name{font-size:20px;font-weight:600;letter-spacing:-.3px;}
@@ -287,7 +288,8 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 .bio-links a:hover{color:var(--id);border-color:var(--id);}
 
 /* ---------- faq ---------- */
-#faq{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
+.faq-block{margin-top:32px;scroll-margin-top:76px;}
+.faq-sub{color:var(--grey);font-size:13.5px;line-height:1.5;margin-bottom:16px;}
 .faq-list{max-width:880px;}
 .faq-item{border:1px solid var(--hair);background:var(--card);margin-bottom:10px;}
 .faq-item summary{cursor:pointer;padding:16px 18px;font-size:15.5px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px;}
@@ -518,7 +520,7 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
             <input type="checkbox" id="wmsToggle">
             Aree reali della mosaicatura ISPRA
           </label>
-          <img id="wmsLegend" alt="Legenda della mosaicatura di pericolosità ISPRA" hidden>
+          <div id="wmsLegend" aria-label="Legenda della mosaicatura di pericolosità ISPRA" hidden></div>
         </div>
         <div id="search-box">
           <div class="ctrl-label"><label for="comuneInput">Cerca il tuo comune</label></div>
@@ -603,6 +605,7 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
   <div class="wrap">
     <h2>Il conto della mancata prevenzione</h2>
     <p class="section-sub">Riparare costa molto più che prevenire. Dal dopoguerra frane e alluvioni hanno presentato all'Italia un conto da 112 miliardi di euro, e negli ultimi anni il ritmo è triplicato. Mettere in sicurezza l'intero territorio nazionale ne costerebbe circa 26: poco più della metà di quanto speso in riparazioni dal 2010 a oggi.</p>
+    <p class="src">Fonti dei dati e delle stime di questa sezione: ANCE-CRESME, ISPRA ReNDiS, JRC, Regione Emilia-Romagna, Greenpeace Italia — tutti i riferimenti e i link in <a href="#fonti-dati">Le fonti dei dati</a>.</p>
 
     <div class="cost-chart">
       <div class="cc-head">
@@ -708,8 +711,6 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
         <p>E il risparmio più grande non compare in nessun bilancio: ogni opera conclusa prima del disastro è un elenco di vittime, sfollati e risarcimenti che non dovremo mai contare.</p>
       </div>
     </div>
-
-    <p class="src">Fonti: ANCE-CRESME, ISPRA ReNDiS, JRC, Regione Emilia-Romagna, Greenpeace Italia — tutti i riferimenti e i link in <a href="#progetto">Le fonti dei dati</a>.</p>
   </div>
 </section>
 
@@ -756,7 +757,7 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       <svg class="mission-logo" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 C32 6 51 30 51 40 A19 19 0 1 1 13 40 C13 30 32 6 32 6 Z" fill="none" stroke="#4FC6CE" stroke-width="3.5"/><path d="M32 24 C32 24 40.5 34.7 40.5 39.2 A8.5 8.5 0 1 1 23.5 39.2 C23.5 34.7 32 24 32 24 Z" fill="#4FC6CE"/></svg>
     </div>
     <div class="about-grid">
-      <div class="met-col">
+      <div class="met-col" id="fonti-dati">
         <h3>Le fonti dei dati</h3>
         <div class="fonte">
           <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
@@ -804,40 +805,37 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
             <a href="https://www.linkedin.com/in/jacopo-ottaviani/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
+        <div id="faq" class="faq-block">
+          <h3>Domande frequenti</h3>
+          <p class="faq-sub">Le risposte alle domande più comuni su cosa mostra l'atlante, da dove vengono i dati e come riutilizzarli.</p>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>Cosa mostra esattamente ItaliaFragile?</summary>
+              <p>Le aree a pericolosità da frana elevata e molto elevata (P3 e P4) e le aree alluvionabili nello scenario medio (P2) per regioni, province e 7.899 comuni italiani, con la popolazione e gli edifici esposti. I dati vengono dalle mosaicature nazionali ISPRA pubblicate sulla piattaforma <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a>.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Il mio comune compare tra le aree pericolose: cosa significa?</summary>
+              <p>Significa che una parte del territorio comunale è classificata pericolosa nei Piani di assetto idrogeologico, non che un disastro sia imminente. È una fotografia di dove il rischio esiste ed è documentato: il 94% dei comuni italiani ha almeno un'area a pericolosità da frana o alluvione.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Che differenza c'è tra pericolosità e rischio?</summary>
+              <p>La pericolosità è la probabilità che un fenomeno — una frana o un'alluvione — interessi una data area. Il rischio combina la pericolosità con l'esposizione (persone, edifici, attività presenti) e la loro vulnerabilità. L'atlante mostra pericolosità ed esposizione: dove sono le aree classificate e chi ci vive.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Da dove vengono i dati e quanto sono aggiornati?</summary>
+              <p>Gli indicatori di rischio vengono dalla piattaforma ISPRA IdroGEO, che mosaica a scala nazionale i Piani di assetto idrogeologico e viene aggiornata periodicamente. I dati sulle vittime vengono dal Rapporto Periodico Polaris del CNR-IRPI, i confini amministrativi da ISTAT, i dati economici da ANCE-CRESME, ISPRA ReNDiS e JRC. Tutte le fonti sono in <a href="#metodo">Metodo e fonti</a>.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Posso riutilizzare le mappe e i dati?</summary>
+              <p>Sì. I dati ISPRA IdroGEO e i confini ISTAT sono pubblicati con licenza CC-BY 4.0: puoi riutilizzarli citando la fonte (ISPRA IdroGEO, ISTAT) e, se riusi le elaborazioni di questo sito, ItaliaFragile con un link.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Chi c'è dietro ItaliaFragile?</summary>
+              <p>ItaliaFragile è un progetto indipendente di data journalism di <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, giornalista dei dati e informatico, Chief Data Officer di Code for Africa e ICFJ Knight Fellow. Per saperne di più: <a href="#progetto">Il progetto</a>.</p>
+            </details>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <h2>Domande frequenti</h2>
-    <p class="section-sub">Le risposte alle domande più comuni su cosa mostra l'atlante, da dove vengono i dati e come riutilizzarli.</p>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary>Cosa mostra esattamente ItaliaFragile?</summary>
-        <p>Le aree a pericolosità da frana elevata e molto elevata (P3 e P4) e le aree alluvionabili nello scenario medio (P2) per regioni, province e 7.899 comuni italiani, con la popolazione e gli edifici esposti. I dati vengono dalle mosaicature nazionali ISPRA pubblicate sulla piattaforma <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a>.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Il mio comune compare tra le aree pericolose: cosa significa?</summary>
-        <p>Significa che una parte del territorio comunale è classificata pericolosa nei Piani di assetto idrogeologico, non che un disastro sia imminente. È una fotografia di dove il rischio esiste ed è documentato: il 94% dei comuni italiani ha almeno un'area a pericolosità da frana o alluvione.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Che differenza c'è tra pericolosità e rischio?</summary>
-        <p>La pericolosità è la probabilità che un fenomeno — una frana o un'alluvione — interessi una data area. Il rischio combina la pericolosità con l'esposizione (persone, edifici, attività presenti) e la loro vulnerabilità. L'atlante mostra pericolosità ed esposizione: dove sono le aree classificate e chi ci vive.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Da dove vengono i dati e quanto sono aggiornati?</summary>
-        <p>Gli indicatori di rischio vengono dalla piattaforma ISPRA IdroGEO, che mosaica a scala nazionale i Piani di assetto idrogeologico e viene aggiornata periodicamente. I dati sulle vittime vengono dal Rapporto Periodico Polaris del CNR-IRPI, i confini amministrativi da ISTAT, i dati economici da ANCE-CRESME, ISPRA ReNDiS e JRC. Tutte le fonti sono in <a href="#metodo">Metodo e fonti</a>.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Posso riutilizzare le mappe e i dati?</summary>
-        <p>Sì. I dati ISPRA IdroGEO e i confini ISTAT sono pubblicati con licenza CC-BY 4.0: puoi riutilizzarli citando la fonte (ISPRA IdroGEO, ISTAT) e, se riusi le elaborazioni di questo sito, ItaliaFragile con un link.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Chi c'è dietro ItaliaFragile?</summary>
-        <p>ItaliaFragile è un progetto indipendente di data journalism di <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, giornalista dei dati e informatico, Chief Data Officer di Code for Africa e ICFJ Knight Fellow. Per saperne di più: <a href="#progetto">Il progetto</a>.</p>
-      </details>
     </div>
   </div>
 </section>
@@ -941,6 +939,21 @@ const comuniRenderer = L.canvas({padding:.3});
 /* WMS: mosaicature nazionali di pericolosita' ISPRA (dettaglio sub-comunale) */
 const WMS_URL = "https://idrogeo.isprambiente.it/geoserver/idrogeo/wms";
 const WMS_LAYERS = {fr:"idrogeo:pericolosita_frane", id:"idrogeo:pericolosita_alluvioni"};
+/* Colori ufficiali degli stili WMS ISPRA (campionati dal GetLegendGraphic) */
+const WMS_LEGEND = {
+  fr: [
+    ["#9d4c4c","Molto elevata P4"],
+    ["#ed4c4c","Elevata P3"],
+    ["#ed954c","Media P2"],
+    ["#f8da79","Moderata P1"],
+    ["#ffff9d","Aree di Attenzione AA"]
+  ],
+  id: [
+    ["#bee8ff","Pericolosità idraulica P1"],
+    ["#0070ff","Pericolosità idraulica P2"],
+    ["#002673","Pericolosità idraulica P3"]
+  ]
+};
 let wmsLayer = null;
 function wmsOn(){ return !!wmsLayer; }
 function setWms(on){
@@ -952,7 +965,8 @@ function setWms(on){
     }).addTo(map);
   }
   $("wmsLegend").hidden = !on;
-  if(on) $("wmsLegend").src = WMS_URL+"?REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER="+WMS_LAYERS[state.hazard];
+  if(on) $("wmsLegend").innerHTML = WMS_LEGEND[state.hazard]
+    .map(([c,l])=>`<div class="legend-row"><i style="background:${c}"></i>${l}</div>`).join("");
   if(geoLayer) geoLayer.setStyle(baseStyle);
   drawNote();
 }
@@ -1208,6 +1222,7 @@ function animateCounters(){
 segInit("segCostView", v=>{
   $("ccBars").hidden = v!=="bars";
   $("ccBubbles").hidden = v!=="bubbles";
+  if(v==="bars") revealCostBars();
 });
 // bolle: click/tap (e tastiera) per fissare il dettaglio, hover via CSS
 const bubs = document.querySelectorAll("#costi .bub");
@@ -1229,16 +1244,22 @@ document.addEventListener("click", e=>{ if(!e.target.closest("#costi .bub")) clo
 
 function animateCostBars(){
   const bars = document.querySelectorAll("#costi .cc-track i");
-  if(!bars.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  bars.forEach(b=>{ b.dataset.w = b.style.width; b.style.width = "0%"; });
+  bars.forEach(b=>{ b.dataset.w = b.style.width; });
   const io = new IntersectionObserver((entries,o)=>{
     if(entries.some(e=>e.isIntersecting)){
       $("costi").classList.add("seen");
-      bars.forEach(b=>{ b.style.width = b.dataset.w; });
       o.disconnect();
     }
   },{threshold:.25});
   io.observe($("costi"));
+}
+function revealCostBars(){
+  const bars = document.querySelectorAll("#costi .cc-track i");
+  if(!bars.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  bars.forEach(b=>{ b.style.width = "0%"; });
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    bars.forEach(b=>{ b.style.width = b.dataset.w; });
+  }));
 }
 
 /* ============================== nav attiva ============================== */

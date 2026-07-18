@@ -122,7 +122,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 #segLevel button,#segRankLevel button{padding:10px 6px;letter-spacing:.4px;}
 .wms-toggle{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.35;cursor:pointer;border:1px solid var(--line);background:var(--card);padding:11px 12px;}
 .wms-toggle input{accent-color:var(--accent,var(--id));width:15px;height:15px;flex-shrink:0;cursor:pointer;}
-#wmsLegend{display:block;margin-top:10px;border:1px solid var(--hair);background:#fff;padding:6px;max-width:100%;}
+#wmsLegend{margin-top:10px;border:1px solid var(--hair);background:var(--card);padding:8px 12px;}
 #wmsLegend[hidden]{display:none;}
 #legend{border:1px solid var(--hair);background:var(--card);padding:16px 18px;}
 #legend .legend-title{font-size:12.5px;font-weight:600;margin-bottom:12px;line-height:1.4;}
@@ -516,7 +516,7 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
             <input type="checkbox" id="wmsToggle">
             Actual areas of the ISPRA mosaic
           </label>
-          <img id="wmsLegend" alt="Legend of the ISPRA hazard mosaic" hidden>
+          <div id="wmsLegend" aria-label="Legend of the ISPRA hazard mosaic" hidden></div>
         </div>
         <div id="search-box">
           <div class="ctrl-label"><label for="comuneInput">Find your municipality</label></div>
@@ -936,6 +936,21 @@ const comuniRenderer = L.canvas({padding:.3});
 /* WMS: national ISPRA hazard mosaics (sub-municipal detail) */
 const WMS_URL = "https://idrogeo.isprambiente.it/geoserver/idrogeo/wms";
 const WMS_LAYERS = {fr:"idrogeo:pericolosita_frane", id:"idrogeo:pericolosita_alluvioni"};
+/* Official colours of the ISPRA WMS styles (sampled from GetLegendGraphic) */
+const WMS_LEGEND = {
+  fr: [
+    ["#9d4c4c","Very high P4"],
+    ["#ed4c4c","High P3"],
+    ["#ed954c","Medium P2"],
+    ["#f8da79","Moderate P1"],
+    ["#ffff9d","Attention areas AA"]
+  ],
+  id: [
+    ["#bee8ff","Flood hazard P1"],
+    ["#0070ff","Flood hazard P2"],
+    ["#002673","Flood hazard P3"]
+  ]
+};
 let wmsLayer = null;
 function wmsOn(){ return !!wmsLayer; }
 function setWms(on){
@@ -947,7 +962,8 @@ function setWms(on){
     }).addTo(map);
   }
   $("wmsLegend").hidden = !on;
-  if(on) $("wmsLegend").src = WMS_URL+"?REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER="+WMS_LAYERS[state.hazard];
+  if(on) $("wmsLegend").innerHTML = WMS_LEGEND[state.hazard]
+    .map(([c,l])=>`<div class="legend-row"><i style="background:${c}"></i>${l}</div>`).join("");
   if(geoLayer) geoLayer.setStyle(baseStyle);
   drawNote();
 }
