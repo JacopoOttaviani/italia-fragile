@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ItaliaFragile - Atlante del dissesto idrogeologico</title>
-<meta name="description" content="Frane e alluvioni in Italia, comune per comune: mappe interattive e classifiche costruite sugli open data ISPRA IdroGEO e CNR-IRPI.">
-<meta name="keywords" content="dissesto idrogeologico, frane, alluvioni, rischio idrogeologico, ISPRA, IdroGEO, mappa rischio comuni, pericolosità frane, aree alluvionabili, Italia">
+<title>ItaliaFragile - Atlas of hydrogeological risk</title>
+<meta name="description" content="Landslides and floods in Italy, municipality by municipality: interactive maps and rankings built on ISPRA IdroGEO and CNR-IRPI open data.">
+<meta name="keywords" content="hydrogeological risk, landslides, floods, Italy, ISPRA, IdroGEO, flood risk map, landslide hazard, Italian municipalities, natural hazards">
 <meta name="author" content="Jacopo Ottaviani">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://italiafragile.it/">
+<link rel="canonical" href="https://italiafragile.it/en/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://italiafragile.it/">
+<meta property="og:url" content="https://italiafragile.it/en/">
 <meta property="og:site_name" content="ItaliaFragile">
-<meta property="og:locale" content="it_IT">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:title" content="ItaliaFragile - Atlante del dissesto idrogeologico">
-<meta property="og:description" content="Il 94% dei comuni italiani ha aree a pericolosità da frana o alluvione. Cerca il tuo.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:title" content="ItaliaFragile - Atlas of hydrogeological risk">
+<meta property="og:description" content="94% of Italian municipalities have areas prone to landslides or floods. Look up yours.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@JacopoOttaviani">
 <meta name="theme-color" content="#0D181D">
@@ -109,6 +109,7 @@ header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;g
 .seg button:first-child{border-left:none;}
 .seg button.on{background:var(--ink);color:var(--bg);}
 .seg.hazard button.on{background:var(--accent,var(--ink));color:var(--bg);}
+#segLevel button,#segRankLevel button{padding:10px 6px;letter-spacing:.4px;}
 .wms-toggle{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.35;cursor:pointer;border:1px solid var(--line);background:var(--card);padding:11px 12px;}
 .wms-toggle input{accent-color:var(--accent,var(--id));width:15px;height:15px;flex-shrink:0;cursor:pointer;}
 #wmsLegend{display:block;margin-top:10px;border:1px solid var(--hair);background:#fff;padding:6px;max-width:100%;}
@@ -181,7 +182,7 @@ header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;g
 .rank-row .rr-val{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12.5px;font-weight:500;font-variant-numeric:tabular-nums;}
 .rank-note{font-size:12.5px;color:var(--grey);margin-top:16px;max-width:60em;}
 
-/* ---------- vittime ---------- */
+/* ---------- victims ---------- */
 #vittime{background:var(--band);border-bottom:1px solid var(--hair);padding:72px 0;}
 #vittime .vit-grid{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start;}
 #vittime p{margin-top:14px;color:var(--soft);font-size:15.5px;max-width:36em;}
@@ -195,7 +196,7 @@ header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;g
 .vit-stat .vs-split b.fr{color:var(--fr);font-weight:600;}
 .vit-stat .vs-split b.id{color:var(--id);font-weight:600;}
 
-/* ---------- costi ---------- */
+/* ---------- costs ---------- */
 #costi{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
 .cost-chart{border:1px solid var(--hair);background:var(--card);padding:22px 26px 18px;margin-bottom:44px;}
 .cost-chart .cc-title{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--grey);}
@@ -247,7 +248,7 @@ header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;g
 #costi p.src{font-size:12.5px;color:var(--grey);margin-top:38px;max-width:70em;}
 #costi p.src a{color:var(--id);font-weight:600;}
 
-/* ---------- metodo & fonti ---------- */
+/* ---------- method & sources ---------- */
 #metodo{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
 .met-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:8px;}
 .met-col h3{font-size:19px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
@@ -261,11 +262,8 @@ header.hero .wrap{position:relative;display:grid;grid-template-columns:7fr 4fr;g
 
 /* ---------- progetto ---------- */
 #progetto{padding:64px 0 72px;border-bottom:1px solid var(--hair);background:var(--band);}
-.mission-row{display:flex;align-items:flex-start;gap:40px;margin-bottom:44px;}
-.mission{font-size:16.5px;color:var(--soft);max-width:56em;line-height:1.6;margin-bottom:0;}
+.mission{font-size:16.5px;color:var(--soft);max-width:56em;margin-bottom:44px;line-height:1.6;}
 .mission b{color:var(--ink);font-weight:600;}
-.mission-logo{flex:0 0 auto;width:132px;height:132px;}
-@media (max-width:760px){.mission-logo{display:none;}}
 .about-grid{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start;}
 .about-grid h3{font-size:19px;font-weight:600;margin-bottom:14px;letter-spacing:-.2px;}
 .bio-card{border:1px solid var(--hair);background:var(--card);padding:26px;}
@@ -346,8 +344,8 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       "@id": "https://italiafragile.it/#website",
       "url": "https://italiafragile.it/",
       "name": "ItaliaFragile",
-      "alternateName": "Atlante del dissesto idrogeologico",
-      "description": "Frane e alluvioni in Italia, comune per comune: mappe interattive e classifiche costruite sugli open data ISPRA IdroGEO e CNR-IRPI.",
+      "alternateName": "Atlas of hydrogeological risk",
+      "description": "Landslides and floods in Italy, municipality by municipality: interactive maps and rankings built on ISPRA IdroGEO and CNR-IRPI open data.",
       "inLanguage": ["it", "en"],
       "author": {"@id": "https://italiafragile.it/#author"}
     },
@@ -366,49 +364,49 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
     },
     {
       "@type": "Dataset",
-      "@id": "https://italiafragile.it/#dataset",
-      "name": "Indicatori di rischio frane e alluvioni per comune, provincia e regione",
-      "description": "Aree a pericolosità da frana elevata e molto elevata (P3+P4) e aree alluvionabili nello scenario medio (P2), con popolazione ed edifici esposti, per i 7.899 comuni italiani. Elaborazione degli indicatori di rischio della mosaicatura nazionale ISPRA.",
-      "url": "https://italiafragile.it/",
+      "@id": "https://italiafragile.it/en/#dataset",
+      "name": "Landslide and flood risk indicators for Italian municipalities, provinces and regions",
+      "description": "High and very high landslide hazard areas (P3+P4) and medium-scenario flood-prone areas (P2), with exposed population and buildings, for all 7,899 Italian municipalities. Derived from the ISPRA national hazard mosaics.",
+      "url": "https://italiafragile.it/en/",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "creator": {"@type": "Organization", "name": "ISPRA", "url": "https://www.isprambiente.gov.it/"},
       "isBasedOn": "https://idrogeo.isprambiente.it/",
-      "spatialCoverage": {"@type": "Place", "name": "Italia"},
-      "keywords": ["dissesto idrogeologico", "frane", "alluvioni", "pericolosità", "rischio idrogeologico", "ISPRA", "IdroGEO"]
+      "spatialCoverage": {"@type": "Place", "name": "Italy"},
+      "keywords": ["hydrogeological risk", "landslides", "floods", "hazard", "Italy", "ISPRA", "IdroGEO"]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://italiafragile.it/#faq",
+      "@id": "https://italiafragile.it/en/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Cosa mostra esattamente ItaliaFragile?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Le aree a pericolosità da frana elevata e molto elevata (P3 e P4) e le aree alluvionabili nello scenario medio (P2) per regioni, province e 7.899 comuni italiani, con la popolazione e gli edifici esposti. I dati vengono dalle mosaicature nazionali ISPRA pubblicate sulla piattaforma IdroGEO."}
+          "name": "What exactly does ItaliaFragile show?",
+          "acceptedAnswer": {"@type": "Answer", "text": "The areas classified as high and very high landslide hazard (P3 and P4) and the flood-prone areas under the medium scenario (P2) for Italy's regions, provinces and 7,899 municipalities, together with the exposed population and buildings. The data come from the ISPRA national hazard mosaics published on the IdroGEO platform."}
         },
         {
           "@type": "Question",
-          "name": "Il mio comune compare tra le aree pericolose: cosa significa?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Significa che una parte del territorio comunale è classificata pericolosa nei Piani di assetto idrogeologico, non che un disastro sia imminente. È una fotografia di dove il rischio esiste ed è documentato: il 94% dei comuni italiani ha almeno un'area a pericolosità da frana o alluvione."}
+          "name": "My municipality appears among the hazard areas: what does that mean?",
+          "acceptedAnswer": {"@type": "Answer", "text": "It means that part of the municipal territory is classified as hazardous in Italy's hydrogeological management plans, not that a disaster is imminent. It is a snapshot of where risk exists and is documented: 94% of Italian municipalities have at least one landslide or flood hazard area."}
         },
         {
           "@type": "Question",
-          "name": "Che differenza c'è tra pericolosità e rischio?",
-          "acceptedAnswer": {"@type": "Answer", "text": "La pericolosità è la probabilità che un fenomeno — una frana o un'alluvione — interessi una data area. Il rischio combina la pericolosità con l'esposizione (persone, edifici, attività presenti) e la loro vulnerabilità. L'atlante mostra pericolosità ed esposizione: dove sono le aree classificate e chi ci vive."}
+          "name": "What is the difference between hazard and risk?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Hazard is the probability that a phenomenon — a landslide or a flood — affects a given area. Risk combines hazard with exposure (the people, buildings and activities present) and their vulnerability. The atlas shows hazard and exposure: where the classified areas are and who lives in them."}
         },
         {
           "@type": "Question",
-          "name": "Da dove vengono i dati e quanto sono aggiornati?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Gli indicatori di rischio vengono dalla piattaforma ISPRA IdroGEO, che mosaica a scala nazionale i Piani di assetto idrogeologico e viene aggiornata periodicamente da ISPRA. I dati sulle vittime vengono dal Rapporto Periodico Polaris del CNR-IRPI, i confini amministrativi da ISTAT, i dati economici da ANCE-CRESME, ISPRA ReNDiS e JRC."}
+          "name": "Where do the data come from and how up to date are they?",
+          "acceptedAnswer": {"@type": "Answer", "text": "The risk indicators come from the ISPRA IdroGEO platform, which mosaics Italy's hydrogeological management plans at national scale and is updated periodically. Casualty data come from the CNR-IRPI Polaris periodic report, administrative boundaries from ISTAT, and the economic figures from ANCE-CRESME, ISPRA ReNDiS and the JRC."}
         },
         {
           "@type": "Question",
-          "name": "Posso riutilizzare le mappe e i dati?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Sì. I dati ISPRA IdroGEO e i confini ISTAT sono pubblicati con licenza CC-BY 4.0: puoi riutilizzarli citando la fonte (ISPRA IdroGEO, ISTAT) e, se riusi le elaborazioni di questo sito, ItaliaFragile con un link."}
+          "name": "Can I reuse the maps and the data?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. ISPRA IdroGEO data and ISTAT boundaries are published under a CC-BY 4.0 licence: you can reuse them by crediting the source (ISPRA IdroGEO, ISTAT) and, if you reuse this site's elaborations, ItaliaFragile with a link."}
         },
         {
           "@type": "Question",
-          "name": "Chi c'è dietro ItaliaFragile?",
-          "acceptedAnswer": {"@type": "Answer", "text": "ItaliaFragile è un progetto indipendente di data journalism di Jacopo Ottaviani, giornalista dei dati e informatico, Chief Data Officer di Code for Africa e ICFJ Knight Fellow."}
+          "name": "Who is behind ItaliaFragile?",
+          "acceptedAnswer": {"@type": "Answer", "text": "ItaliaFragile is an independent data journalism project by Jacopo Ottaviani, a data journalist and computer scientist, Chief Data Officer at Code for Africa and ICFJ Knight Fellow."}
         }
       ]
     }
@@ -426,17 +424,17 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       <span>italia<em>fragile</em></span>
     </a>
     <nav id="topnavLinks">
-      <a href="#mappa">Mappa</a>
-      <a href="#classifiche">Classifiche</a>
-      <a href="#vittime">Le vittime</a>
-      <a href="#costi">Il conto</a>
-      <a href="#metodo">Metodo e fonti</a>
-      <a href="#progetto">Il progetto</a>
+      <a href="#mappa">Map</a>
+      <a href="#classifiche">Rankings</a>
+      <a href="#vittime">The victims</a>
+      <a href="#costi">The bill</a>
+      <a href="#metodo">Method &amp; sources</a>
+      <a href="#progetto">About</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="lang-switch" role="group" aria-label="Lingua / Language">
-      <span class="on" aria-current="page">IT</span>
-      <a href="en/" hreflang="en" lang="en" onclick="this.href='en/'+location.hash">EN</a>
+      <a href="../" hreflang="it" lang="it" onclick="this.href='../'+location.hash">IT</a>
+      <span class="on" aria-current="page">EN</span>
     </div>
   </div>
 </div>
@@ -457,26 +455,26 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
   <div class="hero-coords" aria-hidden="true">41.8919 N &middot; 12.5113 E</div>
   <div class="wrap">
     <div>
-      <div class="kicker">Atlante del dissesto idrogeologico</div>
-      <h1><span class="fr-word">Frane</span> e <span class="id-word">alluvioni</span>,<br>comune per comune.</h1>
-      <p class="standfirst">Nove comuni su dieci convivono col rischio idrogeologico. Un atlante per leggerlo, costruito sugli open data ISPRA.</p>
+      <div class="kicker">Atlas of hydrogeological risk</div>
+      <h1><span class="fr-word">Landslides</span> and <span class="id-word">floods</span>,<br>municipality by municipality.</h1>
+      <p class="standfirst">Nine in ten Italian municipalities live with landslide or flood risk. An atlas to make sense of it, built on ISPRA open data.</p>
       <div class="hero-actions">
-        <a class="btn" href="#mappa">Esplora la mappa</a>
-        <a class="btn ghost" href="#metodo">Come leggere i dati</a>
+        <a class="btn" href="#mappa">Explore the map</a>
+        <a class="btn ghost" href="#metodo">How to read the data</a>
       </div>
     </div>
     <div class="kpis">
       <div class="kpi">
         <div class="kpi-num fr" data-count="1284960">0</div>
-        <div class="kpi-label">persone residenti in aree a pericolosità da frana elevata o molto elevata</div>
+        <div class="kpi-label">people living in areas of high or very high landslide hazard</div>
       </div>
       <div class="kpi">
         <div class="kpi-num id" data-count="6818375">0</div>
-        <div class="kpi-label">persone in aree alluvionabili nello scenario medio</div>
+        <div class="kpi-label">people living in flood-prone areas under the medium scenario</div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="kpiComuni">94%</div>
-        <div class="kpi-label">dei comuni italiani ha aree a pericolosità da frana o alluvione</div>
+        <div class="kpi-label">of Italian municipalities have areas prone to landslides or floods</div>
       </div>
     </div>
   </div>
@@ -484,51 +482,51 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <section id="mappa">
   <div class="wrap">
-    <h2>La mappa del rischio</h2>
-    <p class="section-sub">Scegli il fenomeno e l'indicatore, poi muoviti sulla mappa: dalle regioni si scende alle province e ai 7.899 comuni. Clicca un'area per i dettagli, cerca il tuo comune, o attiva il dettaglio locale per vedere le aree reali delle mosaicature ISPRA, fin sotto il livello comunale.</p>
+    <h2>The risk map</h2>
+    <p class="section-sub">Pick a hazard and an indicator, then move around the map: from the regions down to the provinces and the 7,899 municipalities. Click an area for details, search for your municipality, or switch on the local detail to see the actual areas of the ISPRA hazard mosaics, down below municipal level.</p>
     <div class="map-grid">
-      <aside class="sidebar" aria-label="Controlli della mappa">
+      <aside class="sidebar" aria-label="Map controls">
         <div>
-          <div class="ctrl-label">Fenomeno</div>
+          <div class="ctrl-label">Hazard</div>
           <div class="seg hazard" id="segHazard" role="group">
-            <button data-v="fr" class="on">Frane</button>
-            <button data-v="id">Alluvioni</button>
+            <button data-v="fr" class="on">Landslides</button>
+            <button data-v="id">Floods</button>
           </div>
         </div>
         <div>
-          <div class="ctrl-label">Indicatore</div>
+          <div class="ctrl-label">Indicator</div>
           <div class="seg" id="segMetric" role="group">
-            <button data-v="area" class="on">Territorio</button>
-            <button data-v="popp">% Persone</button>
-            <button data-v="pop">Persone</button>
+            <button data-v="area" class="on">Land</button>
+            <button data-v="popp">% People</button>
+            <button data-v="pop">People</button>
           </div>
         </div>
         <div>
-          <div class="ctrl-label">Dettaglio</div>
+          <div class="ctrl-label">Level</div>
           <div class="seg" id="segLevel" role="group">
-            <button data-v="reg" class="on">Regioni</button>
-            <button data-v="prov">Province</button>
-            <button data-v="com">Comuni</button>
+            <button data-v="reg" class="on">Regions</button>
+            <button data-v="prov">Provinces</button>
+            <button data-v="com">Municipalities</button>
           </div>
         </div>
         <div>
-          <div class="ctrl-label">Dettaglio locale</div>
+          <div class="ctrl-label">Local detail</div>
           <label class="wms-toggle" for="wmsToggle">
             <input type="checkbox" id="wmsToggle">
-            Aree reali della mosaicatura ISPRA
+            Actual areas of the ISPRA mosaic
           </label>
-          <img id="wmsLegend" alt="Legenda della mosaicatura di pericolosità ISPRA" hidden>
+          <img id="wmsLegend" alt="Legend of the ISPRA hazard mosaic" hidden>
         </div>
         <div id="search-box">
-          <div class="ctrl-label"><label for="comuneInput">Cerca il tuo comune</label></div>
-          <input id="comuneInput" type="text" placeholder="Es. Sarno, Vernazza, Bologna" autocomplete="off">
+          <div class="ctrl-label"><label for="comuneInput">Find your municipality</label></div>
+          <input id="comuneInput" type="text" placeholder="E.g. Sarno, Vernazza, Bologna" autocomplete="off">
           <div id="searchResults"></div>
         </div>
         <div id="detailCard" aria-live="polite"></div>
         <div id="legend"></div>
       </aside>
       <div>
-        <div id="map" role="application" aria-label="Mappa coropletica del rischio idrogeologico"></div>
+        <div id="map" role="application" aria-label="Choropleth map of hydrogeological risk"></div>
         <p id="mapNote"></p>
       </div>
     </div>
@@ -537,27 +535,27 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <section id="classifiche">
   <div class="wrap">
-    <h2>Le classifiche</h2>
-    <p class="section-sub">Dove il rischio pesa di più: le graduatorie di province e comuni per persone esposte, in valore assoluto o in rapporto alla popolazione.</p>
+    <h2>The rankings</h2>
+    <p class="section-sub">Where the risk weighs most: provinces and municipalities ranked by people exposed, in absolute numbers or as a share of the population.</p>
     <div class="rank-controls">
       <div class="seg" id="segRankLevel" role="group">
-        <button data-v="prov" class="on">Province</button>
-        <button data-v="com">Comuni</button>
+        <button data-v="prov" class="on">Provinces</button>
+        <button data-v="com">Municipalities</button>
       </div>
       <div class="seg" id="segRankMetric" role="group">
-        <button data-v="abs" class="on">Persone</button>
-        <button data-v="pct">% popolazione</button>
+        <button data-v="abs" class="on">People</button>
+        <button data-v="pct">% population</button>
       </div>
     </div>
     <div class="rank-grid">
       <div class="rank-col">
-        <h3 class="fr">Frane</h3>
-        <div class="rank-sub">Popolazione in aree a pericolosità elevata o molto elevata</div>
+        <h3 class="fr">Landslides</h3>
+        <div class="rank-sub">Residents in areas of high or very high hazard</div>
         <div id="rankFr"></div>
       </div>
       <div class="rank-col">
-        <h3 class="id">Alluvioni</h3>
-        <div class="rank-sub">Popolazione in aree alluvionabili, scenario medio</div>
+        <h3 class="id">Floods</h3>
+        <div class="rank-sub">Residents in flood-prone areas, medium scenario</div>
         <div id="rankId"></div>
       </div>
     </div>
@@ -568,31 +566,31 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 <section id="vittime">
   <div class="wrap vit-grid">
     <div>
-      <h2>Il prezzo pagato alle frane e alle acque</h2>
-      <p>Dietro le percentuali ci sono paesi evacuati nella notte, strade cancellate, persone che non sono tornate a casa. Il CNR-IRPI ricostruisce da decenni l'impatto diretto di frane e inondazioni sulla popolazione italiana.</p>
-      <p>I numeri qui accanto vengono dal Rapporto Periodico Polaris e riguardano gli eventi con vittime documentati sul territorio nazionale.</p>
-      <p class="src">Fonte: CNR-IRPI, <a href="https://polaris.irpi.cnr.it/report/" target="_blank" rel="noopener">Rapporto Periodico Polaris, Anno 2024</a> (DOI 10.30437/REPORT2024).</p>
+      <h2>The price paid to landslides and floods</h2>
+      <p>Behind the percentages are villages evacuated in the night, roads wiped away, people who never made it home. For decades the CNR-IRPI has been reconstructing the direct impact of landslides and floods on Italy's population.</p>
+      <p>The figures alongside come from the Polaris Periodic Report and cover the documented events with victims across the country.</p>
+      <p class="src">Source: CNR-IRPI, <a href="https://polaris.irpi.cnr.it/report/" target="_blank" rel="noopener">Polaris Periodic Report, Year 2024</a> (DOI 10.30437/REPORT2024).</p>
     </div>
     <div class="vit-stats">
       <div class="vit-stat">
-        <div class="big-num">1.616</div>
-        <div class="vs-label">morti per frane e inondazioni in Italia dal 1974 al 2023</div>
-        <div class="vs-split"><b class="fr">1.060 per frana</b> · <b class="id">556 per inondazione</b></div>
+        <div class="big-num">1,616</div>
+        <div class="vs-label">deaths from landslides and floods in Italy between 1974 and 2023</div>
+        <div class="vs-split"><b class="fr">1,060 in landslides</b> · <b class="id">556 in floods</b></div>
       </div>
       <div class="vit-stat">
-        <div class="big-num">334.245</div>
-        <div class="vs-label">evacuati e senzatetto nello stesso mezzo secolo</div>
-        <div class="vs-split">2.210 comuni colpiti in tutte le 20 regioni</div>
+        <div class="big-num">334,245</div>
+        <div class="vs-label">people evacuated or left homeless over the same half-century</div>
+        <div class="vs-split">2,210 municipalities hit, across all 20 regions</div>
       </div>
       <div class="vit-stat">
         <div class="big-num">16</div>
-        <div class="vs-label">morti nel solo 2024, più 3 dispersi e 19 feriti</div>
-        <div class="vs-split"><b class="fr">5 per frana</b> · <b class="id">11 per inondazione</b></div>
+        <div class="vs-label">deaths in 2024 alone, plus 3 missing and 19 injured</div>
+        <div class="vs-split"><b class="fr">5 in landslides</b> · <b class="id">11 in floods</b></div>
       </div>
       <div class="vit-stat">
-        <div class="big-num">7.333</div>
-        <div class="vs-label">evacuati e senzatetto nel 2024, in 149 comuni di 17 regioni</div>
-        <div class="vs-split"><b class="fr">804 per frana</b> · <b class="id">6.529 per inondazione</b></div>
+        <div class="big-num">7,333</div>
+        <div class="vs-label">people evacuated or left homeless in 2024, in 149 municipalities across 17 regions</div>
+        <div class="vs-split"><b class="fr">804 in landslides</b> · <b class="id">6,529 in floods</b></div>
       </div>
     </div>
   </div>
@@ -600,147 +598,147 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <section id="costi">
   <div class="wrap">
-    <h2>Il conto della mancata prevenzione</h2>
-    <p class="section-sub">Riparare costa molto più che prevenire. Dal dopoguerra frane e alluvioni hanno presentato all'Italia un conto da 112 miliardi di euro, e negli ultimi anni il ritmo è triplicato. Mettere in sicurezza l'intero territorio nazionale ne costerebbe circa 26: poco più della metà di quanto speso in riparazioni dal 2010 a oggi.</p>
+    <h2>The bill for neglected prevention</h2>
+    <p class="section-sub">Repairing costs far more than preventing. Since the end of the Second World War, landslides and floods have handed Italy a bill of 112 billion euros, and in recent years the pace has tripled. Securing the entire national territory would cost around 26 billion: little more than half of what has been spent on repairs since 2010.</p>
 
     <div class="cost-chart">
       <div class="cc-head">
-        <div class="cc-title">Prevenire e riparare, in miliardi di euro</div>
-        <div class="seg" id="segCostView" role="group" aria-label="Tipo di grafico">
-          <button data-v="bubbles" class="on">Bolle</button>
-          <button data-v="bars">Barre</button>
+        <div class="cc-title">Preventing and repairing, in billions of euros</div>
+        <div class="seg" id="segCostView" role="group" aria-label="Chart type">
+          <button data-v="bubbles" class="on">Bubbles</button>
+          <button data-v="bars">Bars</button>
         </div>
       </div>
       <div id="ccBars" hidden>
       <div class="cc-row prev">
-        <div class="cc-label">Prevenzione: la spesa effettiva 1999–2024<small>fondi statali per la difesa del suolo risultanti spesi (ISPRA ReNDiS)</small></div>
+        <div class="cc-label">Prevention: actual spending 1999–2024<small>state soil-protection funds recorded as spent (ISPRA ReNDiS)</small></div>
         <div class="cc-track" aria-hidden="true"><i style="width:4.6%"></i></div>
-        <div class="cc-val">5,1 mld</div>
+        <div class="cc-val">€5.1bn</div>
       </div>
       <div class="cc-row need">
-        <div class="cc-label">Prevenzione: mettere in sicurezza tutta l'Italia<small>fabbisogno teorico censito da ReNDiS, opere richieste e mai finanziate</small></div>
+        <div class="cc-label">Prevention: securing the whole of Italy<small>theoretical need surveyed by ReNDiS, works requested and never funded</small></div>
         <div class="cc-track" aria-hidden="true"><i style="width:23.2%"></i></div>
-        <div class="cc-val">&gt;26 mld</div>
+        <div class="cc-val">&gt;€26bn</div>
       </div>
       <div class="cc-row rip">
-        <div class="cc-label">Riparazione dei danni, 2010–2023<small>costi del dissesto idrogeologico (ANCE-CRESME, valori 2023)</small></div>
+        <div class="cc-label">Repairing the damage, 2010–2023<small>costs of hydrogeological instability (ANCE-CRESME, 2023 values)</small></div>
         <div class="cc-track" aria-hidden="true"><i style="width:41.1%"></i></div>
-        <div class="cc-val">46 mld</div>
+        <div class="cc-val">€46bn</div>
       </div>
       <div class="cc-row rip">
-        <div class="cc-label">Riparazione dei danni, 1944–2023<small>ottant'anni di frane e alluvioni (ANCE-CRESME, valori 2023)</small></div>
+        <div class="cc-label">Repairing the damage, 1944–2023<small>eighty years of landslides and floods (ANCE-CRESME, 2023 values)</small></div>
         <div class="cc-track" aria-hidden="true"><i style="width:100%"></i></div>
-        <div class="cc-val">112 mld</div>
+        <div class="cc-val">€112bn</div>
       </div>
       </div>
       <div id="ccBubbles" class="cc-bubbles">
         <div class="bubble-row">
           <div class="bub prev" style="--d:47" tabindex="0" role="button" aria-expanded="false">
             <div class="bub-circle"><i aria-hidden="true"></i>
-              <div class="bub-tip"><b>La prevenzione davvero pagata.</b> Quanto lo Stato ha effettivamente speso in opere di difesa del suolo dal 1999 al 2024: appena il 27% dei 19,2 miliardi stanziati. Fonte: ISPRA ReNDiS.</div>
+              <div class="bub-tip"><b>The prevention actually paid for.</b> What the state has actually spent on soil-protection works from 1999 to 2024: barely 27% of the €19.2 billion allocated. Source: ISPRA ReNDiS.</div>
             </div>
-            <div class="bub-val">5,1 mld</div>
-            <div class="bub-lab">Prevenzione: spesa effettiva 1999–2024</div>
+            <div class="bub-val">€5.1bn</div>
+            <div class="bub-lab">Prevention: actual spending 1999–2024</div>
           </div>
           <div class="bub need" style="--d:106" tabindex="0" role="button" aria-expanded="false">
             <div class="bub-circle"><i aria-hidden="true"></i>
-              <div class="bub-tip"><b>Il costo della sicurezza.</b> Il fabbisogno teorico per realizzare tutte le opere di messa in sicurezza richieste dai territori e censite da ReNDiS: oltre 26 miliardi, in gran parte mai finanziati.</div>
+              <div class="bub-tip"><b>The cost of safety.</b> The theoretical funding needed to build all the risk-mitigation works requested by local authorities and surveyed by ReNDiS: over €26 billion, most of it never funded.</div>
             </div>
-            <div class="bub-val">&gt;26 mld</div>
-            <div class="bub-lab">Messa in sicurezza di tutta l'Italia (fabbisogno)</div>
+            <div class="bub-val">&gt;€26bn</div>
+            <div class="bub-lab">Securing the whole of Italy (funding need)</div>
           </div>
           <div class="bub rip" style="--d:141" tabindex="0" role="button" aria-expanded="false">
             <div class="bub-circle"><i aria-hidden="true"></i>
-              <div class="bub-tip"><b>Le riparazioni recenti.</b> La spesa per riparare i danni di frane e alluvioni dal 2010 al 2023: 3,3 miliardi l'anno, il triplo del ritmo del mezzo secolo precedente. Fonte: ANCE-CRESME, valori 2023.</div>
+              <div class="bub-tip"><b>The recent repairs.</b> Spending to repair landslide and flood damage from 2010 to 2023: €3.3 billion a year, three times the pace of the previous half-century. Source: ANCE-CRESME, 2023 values.</div>
             </div>
-            <div class="bub-val">46 mld</div>
-            <div class="bub-lab">Riparazione dei danni, 2010–2023</div>
+            <div class="bub-val">€46bn</div>
+            <div class="bub-lab">Repairing the damage, 2010–2023</div>
           </div>
           <div class="bub rip" style="--d:220" tabindex="0" role="button" aria-expanded="false">
             <div class="bub-circle"><i aria-hidden="true"></i>
-              <div class="bub-tip"><b>Il conto del dopoguerra.</b> Tutto ciò che il dissesto idrogeologico è costato all'Italia dal 1944: 112 miliardi in valori 2023, più di quattro volte il fabbisogno dell'intera messa in sicurezza. Fonte: ANCE-CRESME.</div>
+              <div class="bub-tip"><b>The post-war bill.</b> Everything hydrogeological instability has cost Italy since 1944: €112 billion in 2023 values, more than four times the cost of securing the entire country. Source: ANCE-CRESME.</div>
             </div>
-            <div class="bub-val">112 mld</div>
-            <div class="bub-lab">Riparazione dei danni, 1944–2023</div>
+            <div class="bub-val">€112bn</div>
+            <div class="bub-lab">Repairing the damage, 1944–2023</div>
           </div>
         </div>
       </div>
-      <p class="cc-note">Passa il mouse o tocca una bolla per il dettaglio. Il confronto indica ordini di grandezza: le stime ANCE-CRESME sono espresse in valori 2023, gli importi ReNDiS a valori correnti; l'area dei cerchi è proporzionale agli importi. E nel conto delle riparazioni non entrano le vittime, né i danni mai risarciti.</p>
+      <p class="cc-note">Hover over or tap a bubble for the details. The comparison shows orders of magnitude: the ANCE-CRESME estimates are in 2023 values, the ReNDiS amounts at current values; the area of each circle is proportional to the amounts. And the repair bill does not include the victims, nor the damage that was never compensated.</p>
     </div>
 
     <div class="cost-stats">
       <div class="vit-stat">
-        <div class="big-num">3,3 mld €</div>
-        <div class="vs-label">spesi in media ogni anno, dal 2010, per riparare i danni di frane e alluvioni</div>
-        <div class="vs-split"><b class="fr">×3</b> rispetto alla media del mezzo secolo precedente</div>
+        <div class="big-num">€3.3bn</div>
+        <div class="vs-label">spent on average every year since 2010 to repair landslide and flood damage</div>
+        <div class="vs-split"><b class="fr">×3</b> the average of the previous half-century</div>
       </div>
       <div class="vit-stat">
         <div class="big-num">27%</div>
-        <div class="vs-label">dei 19,2 miliardi stanziati per la prevenzione dal 1999 risulta effettivamente speso</div>
-        <div class="vs-split">8.813 opere concluse su 25.539 finanziate</div>
+        <div class="vs-label">of the €19.2 billion allocated to prevention since 1999 is recorded as actually spent</div>
+        <div class="vs-split">8,813 works completed out of 25,539 funded</div>
       </div>
       <div class="vit-stat">
-        <div class="big-num">5 anni</div>
-        <div class="vs-label">la durata media di un'opera di prevenzione, dal finanziamento alla conclusione</div>
-        <div class="vs-split">una su dieci supera i dieci anni</div>
+        <div class="big-num">5 years</div>
+        <div class="vs-label">the average life of a prevention project, from funding to completion</div>
+        <div class="vs-split">one in ten takes more than ten years</div>
       </div>
       <div class="vit-stat">
-        <div class="big-num">8,8 mld €</div>
-        <div class="vs-label">la stima dei danni della sola alluvione del maggio 2023 in Emilia-Romagna</div>
-        <div class="vs-split">più della spesa effettiva in prevenzione <b class="id">dal 1999 a oggi</b></div>
+        <div class="big-num">€8.8bn</div>
+        <div class="vs-label">the estimated damage from the May 2023 flood in Emilia-Romagna alone</div>
+        <div class="vs-split">more than actual prevention spending <b class="id">since 1999</b></div>
       </div>
     </div>
 
     <div class="cost-roi">
       <div class="roi-box">
         <div class="roi-line">
-          <div class="roi-unit"><span class="big-num">1 €</span><small>investito in prevenzione</small></div>
+          <div class="roi-unit"><span class="big-num">€1</span><small>invested in prevention</small></div>
           <span class="roi-arrow" aria-hidden="true">→</span>
-          <div class="roi-unit"><span class="big-num id">4 €</span><small>di danni evitati in futuro</small></div>
+          <div class="roi-unit"><span class="big-num id">€4</span><small>of future damage avoided</small></div>
         </div>
-        <div class="roi-src">Stima del Centro comune di ricerca (JRC) per le opere di laminazione delle piene in Europa, scenario +3&nbsp;°C (Dottori et al., <em>Nature Climate Change</em>, 2023).</div>
+        <div class="roi-src">Joint Research Centre (JRC) estimate for river flood-control works in Europe, +3&nbsp;°C scenario (Dottori et al., <em>Nature Climate Change</em>, 2023).</div>
       </div>
       <div class="roi-text">
-        <h3>Quanto si risparmia investendo adesso?</h3>
-        <p>Il Centro comune di ricerca della Commissione europea ha stimato che <b>ogni euro investito in casse di espansione dei fiumi ne evita fino a quattro</b> di danni futuri. Applicato al fabbisogno italiano, quel rapporto trasformerebbe i 26 miliardi della messa in sicurezza in <b>oltre 100 miliardi di danni evitati</b> nei decenni a venire.</p>
-        <p>Anche senza moltiplicatori il conto torna presto: la messa in sicurezza dell'intero territorio costa quanto <b>circa otto anni di riparazioni</b> al ritmo attuale. Ma i fondi continuano ad arrivare soprattutto dopo i disastri: secondo l'analisi di Greenpeace sui dati della Protezione civile, tra il 2015 e il 2024 frane e alluvioni hanno prodotto <b>oltre 19 miliardi di danni riconosciuti</b>, e i ristori pubblici ne hanno coperto appena il <b>17%</b>. Il resto è rimasto sulle spalle di famiglie, imprese ed enti locali.</p>
-        <p>E il risparmio più grande non compare in nessun bilancio: ogni opera conclusa prima del disastro è un elenco di vittime, sfollati e risarcimenti che non dovremo mai contare.</p>
+        <h3>How much would investing now save?</h3>
+        <p>The European Commission's Joint Research Centre has estimated that <b>every euro invested in river flood-retention basins avoids up to four euros</b> of future damage. Applied to Italy's needs, that ratio would turn the €26 billion of risk-mitigation works into <b>over €100 billion of avoided damage</b> in the decades to come.</p>
+        <p>Even without multipliers, the maths adds up quickly: securing the entire country costs about <b>eight years of repairs</b> at the current pace. Yet funding keeps arriving mostly after the disasters: according to Greenpeace's analysis of Civil Protection data, between 2015 and 2024 landslides and floods produced <b>over €19 billion in officially recognised damage</b>, and public compensation covered barely <b>17%</b> of it. The rest fell on families, businesses and local authorities.</p>
+        <p>And the biggest saving appears in no budget: every project completed before the disaster is a list of victims, evacuees and compensation payments we will never have to count.</p>
       </div>
     </div>
 
-    <p class="src">Fonti: <a href="https://www.anceemilia.it/ance-cresme-presentati-i-dati-del-2-rapporto-lo-stato-di-rischio-del-territorio-italiano-2023-sul-dissesto-idrogeologico-e-consumo-del-suolo/" target="_blank" rel="noopener">ANCE-CRESME, Lo stato di rischio del territorio italiano (2023)</a> · <a href="https://www.rendis.isprambiente.it/rendisweb/" target="_blank" rel="noopener">ISPRA, Repertorio Nazionale degli interventi per la Difesa del Suolo – Rapporto 2025</a> · <a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – Commissione europea (2023)</a> · <a href="https://protezionecivile.regione.emilia-romagna.it/notizie-in-evidenza/alluvione-oltre-8-8-miliardi-di-euro-la-stima-provvisoria-dei-danni-di-cui-1-8-per-interventi-necessari-a-fare-fronte-emergenza" target="_blank" rel="noopener">Regione Emilia-Romagna, stima provvisoria dei danni (giugno 2023)</a> · <a href="https://www.ilfattoquotidiano.it/2026/04/02/alluvioni-frane-italia-19miliardi-danni-notizie/8342662/" target="_blank" rel="noopener">Greenpeace Italia su dati del Dipartimento della Protezione Civile (2026)</a>.</p>
+    <p class="src">Sources: <a href="https://www.anceemilia.it/ance-cresme-presentati-i-dati-del-2-rapporto-lo-stato-di-rischio-del-territorio-italiano-2023-sul-dissesto-idrogeologico-e-consumo-del-suolo/" target="_blank" rel="noopener">ANCE-CRESME, The state of risk of the Italian territory (2023, in Italian)</a> · <a href="https://www.rendis.isprambiente.it/rendisweb/" target="_blank" rel="noopener">ISPRA, National Registry of Soil Protection Works (ReNDiS) – 2025 report</a> · <a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – European Commission (2023)</a> · <a href="https://protezionecivile.regione.emilia-romagna.it/notizie-in-evidenza/alluvione-oltre-8-8-miliardi-di-euro-la-stima-provvisoria-dei-danni-di-cui-1-8-per-interventi-necessari-a-fare-fronte-emergenza" target="_blank" rel="noopener">Emilia-Romagna Region, provisional damage estimate (June 2023, in Italian)</a> · <a href="https://www.ilfattoquotidiano.it/2026/04/02/alluvioni-frane-italia-19miliardi-danni-notizie/8342662/" target="_blank" rel="noopener">Greenpeace Italy on Civil Protection Department data (2026, in Italian)</a>.</p>
   </div>
 </section>
 
 <section id="metodo">
   <div class="wrap">
-    <h2>Metodo e fonti</h2>
+    <h2>Method and sources</h2>
     <div class="met-grid">
       <div class="met-col">
-        <h3>Come leggere i dati</h3>
-        <p><b>Frane.</b> Le aree classificate a pericolosità <b>elevata (P3) e molto elevata (P4)</b> nei Piani di assetto idrogeologico, mosaicate a scala nazionale da ISPRA. È l'indicatore usato per territorio, popolazione ed edifici esposti.</p>
-        <p><b>Alluvioni.</b> Le aree allagabili nello <b>scenario di pericolosità media (P2)</b>: alluvioni con tempo di ritorno fra 100 e 200 anni, secondo la Direttiva europea 2007/60.</p>
-        <p><b>Le persone.</b> La popolazione esposta è quella residente nelle aree pericolose secondo il censimento ISTAT più recente disponibile sulla piattaforma. Non è una previsione: è una fotografia di chi abita oggi in zone classificate pericolose.</p>
-        <p><b>Il dettaglio locale.</b> L'interruttore "aree reali" sovrappone alla mappa le mosaicature ISPRA così come pubblicate, via servizio WMS di IdroGEO: è il dettaglio sub-comunale delle aree classificate, e si attiva da solo quando cerchi un comune.</p>
-        <p><b>I limiti.</b> Le mosaicature aggregano piani redatti in tempi e con criteri diversi dalle Autorità di bacino distrettuali; i confini sono generalizzati per la visualizzazione. Per gli usi ufficiali fa fede la cartografia delle Autorità competenti.</p>
+        <h3>How to read the data</h3>
+        <p><b>Landslides.</b> The areas classified as <b>high (P3) and very high (P4)</b> hazard in Italy's hydrogeological management plans, mosaicked at national scale by ISPRA. This is the indicator used for land, population and buildings exposed.</p>
+        <p><b>Floods.</b> The areas liable to flooding under the <b>medium hazard scenario (P2)</b>: floods with a return period of 100 to 200 years, as defined by European Directive 2007/60.</p>
+        <p><b>The people.</b> The exposed population is the number of residents in hazard areas according to the most recent ISTAT census available on the platform. It is not a forecast: it is a snapshot of who lives today in areas classified as hazardous.</p>
+        <p><b>The local detail.</b> The "actual areas" switch overlays the ISPRA mosaics on the map as published, via the IdroGEO WMS service: it is the sub-municipal detail of the classified areas, and it turns on automatically when you search for a municipality.</p>
+        <p><b>The limits.</b> The mosaics aggregate plans drawn up at different times and with different criteria by the district basin authorities; boundaries are generalised for display. For official purposes, the maps of the competent authorities prevail.</p>
       </div>
       <div class="met-col">
-        <h3>Fonti aperte</h3>
+        <h3>Open sources</h3>
         <div class="fonte">
           <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
-          <div class="f-desc">Piattaforma nazionale sul dissesto idrogeologico: mosaicature di pericolosità e indicatori di rischio per tutti i comuni italiani, con API aperta e dati in licenza CC-BY 4.0.</div>
+          <div class="f-desc">Italy's national platform on hydrogeological instability: hazard mosaics and risk indicators for every Italian municipality, with an open API and data under a CC-BY 4.0 licence.</div>
         </div>
         <div class="fonte">
           <div class="f-name"><a href="https://polaris.irpi.cnr.it/" target="_blank" rel="noopener">CNR-IRPI Polaris</a></div>
-          <div class="f-desc">Rapporti periodici sul rischio posto alla popolazione italiana da frane e inondazioni: vittime, feriti, evacuati, dal 1974 a oggi.</div>
+          <div class="f-desc">Periodic reports on the risk landslides and floods pose to the Italian population: deaths, injuries, evacuees, from 1974 to today.</div>
         </div>
         <div class="fonte">
-          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">Confini amministrativi ISTAT</a></div>
-          <div class="f-desc">Geometrie di regioni e province in GeoJSON, derivate ISTAT, semplificate per il web (via openpolis).</div>
+          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">ISTAT administrative boundaries</a></div>
+          <div class="f-desc">Region and province geometries in GeoJSON, derived from ISTAT, simplified for the web (via openpolis).</div>
         </div>
         <div class="fonte">
-          <div class="f-name"><a href="https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio/dissesto-idrogeologico" target="_blank" rel="noopener">ISPRA, Rapporto sul dissesto idrogeologico in Italia</a></div>
-          <div class="f-desc">Il rapporto nazionale su pericolosità e indicatori di rischio: il contesto scientifico dietro questi numeri.</div>
+          <div class="f-name"><a href="https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio/dissesto-idrogeologico" target="_blank" rel="noopener">ISPRA, Report on hydrogeological instability in Italy</a></div>
+          <div class="f-desc">The national report on hazard and risk indicators: the scientific context behind these figures.</div>
         </div>
       </div>
     </div>
@@ -749,48 +747,45 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <section id="progetto">
   <div class="wrap">
-    <h2>Il progetto</h2>
-    <div class="mission-row">
-      <p class="mission">ItaliaFragile nasce per rendere leggibile a chiunque un rischio che riguarda quasi tutti i comuni italiani. I dati su frane e alluvioni esistono, sono pubblici e di buona qualità, ma restano confinati in piattaforme tecniche e rapporti specialistici. Questo atlante li trasforma in <b>mappe, classifiche e numeri comprensibili, comune per comune</b>, perché cittadini, giornalisti e amministratori possano vedere dove il rischio si concentra, chi ci vive dentro e quanto costa continuare a rincorrere i disastri invece di prevenirli.</p>
-      <svg class="mission-logo" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 C32 6 51 30 51 40 A19 19 0 1 1 13 40 C13 30 32 6 32 6 Z" fill="none" stroke="#4FC6CE" stroke-width="3.5"/><path d="M32 24 C32 24 40.5 34.7 40.5 39.2 A8.5 8.5 0 1 1 23.5 39.2 C23.5 34.7 32 24 32 24 Z" fill="#4FC6CE"/></svg>
-    </div>
+    <h2>About the project</h2>
+    <p class="mission">ItaliaFragile was born to make a risk that touches nearly every Italian municipality readable by anyone. The data on landslides and floods exist, are public and of good quality — but they remain confined to technical platforms and specialist reports. This atlas turns them into <b>maps, rankings and understandable figures, municipality by municipality</b>, so that citizens, journalists and administrators can see where risk concentrates, who lives inside it, and what it costs to keep chasing disasters instead of preventing them.</p>
     <div class="about-grid">
       <div class="met-col">
-        <h3>Le fonti dei dati</h3>
+        <h3>Data sources</h3>
         <div class="fonte">
           <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
-          <div class="f-desc">La piattaforma nazionale sul dissesto idrogeologico: mosaicature di pericolosità da frana e idraulica e indicatori di rischio per tutti i comuni italiani. È la fonte principale dell'atlante (API aperta, licenza CC-BY 4.0).</div>
+          <div class="f-desc">Italy's national platform on hydrogeological instability: landslide and flood hazard mosaics and risk indicators for every Italian municipality. It is the atlas's main source (open API, CC-BY 4.0 licence).</div>
         </div>
         <div class="fonte">
           <div class="f-name"><a href="https://polaris.irpi.cnr.it/" target="_blank" rel="noopener">CNR-IRPI Polaris</a></div>
-          <div class="f-desc">I rapporti periodici dell'Istituto di Ricerca per la Protezione Idrogeologica del CNR: vittime, feriti ed evacuati per frane e inondazioni in Italia, dal 1974 a oggi. Alimenta la sezione "Le vittime".</div>
+          <div class="f-desc">The periodic reports of the CNR Research Institute for Geo-Hydrological Protection: deaths, injuries and evacuees caused by landslides and floods in Italy, from 1974 to today. It feeds the "Victims" section.</div>
         </div>
         <div class="fonte">
-          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">Confini amministrativi ISTAT</a></div>
-          <div class="f-desc">Geometrie di regioni, province e comuni in GeoJSON, derivate ISTAT (licenza CC-BY), semplificate per il web via openpolis.</div>
+          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">ISTAT administrative boundaries</a></div>
+          <div class="f-desc">Region, province and municipality geometries in GeoJSON, derived from ISTAT (CC-BY licence), simplified for the web via openpolis.</div>
         </div>
         <div class="fonte">
           <div class="f-name"><a href="https://www.rendis.isprambiente.it/rendisweb/" target="_blank" rel="noopener">ISPRA ReNDiS</a></div>
-          <div class="f-desc">Il Repertorio Nazionale degli interventi per la Difesa del Suolo: stanziamenti, spesa effettiva e fabbisogno delle opere di prevenzione. Alimenta la sezione "Il conto".</div>
+          <div class="f-desc">The national registry of soil-protection works: allocations, actual spending and the funding needs of prevention works. It feeds "The bill" section.</div>
         </div>
         <div class="fonte">
           <div class="f-name"><a href="https://www.anceemilia.it/ance-cresme-presentati-i-dati-del-2-rapporto-lo-stato-di-rischio-del-territorio-italiano-2023-sul-dissesto-idrogeologico-e-consumo-del-suolo/" target="_blank" rel="noopener">ANCE-CRESME</a></div>
-          <div class="f-desc"><em>Lo stato di rischio del territorio italiano</em> (2023): la stima dei costi delle riparazioni dei danni da frane e alluvioni dal dopoguerra a oggi, in valori 2023.</div>
+          <div class="f-desc"><em>Lo stato di rischio del territorio italiano</em> (2023): the estimate of what repairing landslide and flood damage has cost Italy since the postwar years, in 2023 values.</div>
         </div>
         <div class="fonte">
-          <div class="f-name"><a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – Commissione europea</a></div>
-          <div class="f-desc">La stima del ritorno degli investimenti in prevenzione (Dottori et al., <em>Nature Climate Change</em>, 2023): fino a 4 euro di danni evitati per ogni euro investito.</div>
+          <div class="f-name"><a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/facing-increasing-river-flood-risk-europe-adaptation-measures-can-save-lives-and-billions-euro-2023-02-06_en" target="_blank" rel="noopener">JRC – European Commission</a></div>
+          <div class="f-desc">The estimate of the return on prevention investments (Dottori et al., <em>Nature Climate Change</em>, 2023): up to 4 euros of avoided damage for every euro invested.</div>
         </div>
       </div>
       <div>
-        <h3>L'autore</h3>
+        <h3>The author</h3>
         <div class="bio-card">
           <div class="bio-name">Jacopo Ottaviani</div>
           <div class="bio-role">Data journalist &amp; computer scientist</div>
-          <p>Giornalista dei dati e informatico, da oltre dieci anni trasforma dati in storie tra Europa e Africa, occupandosi di migrazioni, ambiente e territorio in quattro continenti.</p>
-          <p>È Chief Data Officer di Code for Africa, la più grande rete di civic technology e data journalism del continente africano, e ICFJ Knight Fellow. Ha formato redazioni in Europa e in Africa; il suo lavoro ha ricevuto tra gli altri il Data Journalism Award (2014), il Sigma Award (2021) e il premio Lorenzo Natali della Commissione europea.</p>
+          <p>A data journalist and computer scientist, for over a decade he has been turning data into stories across Europe and Africa, covering migration, environment and territory on four continents.</p>
+          <p>He is Chief Data Officer at Code for Africa, the continent's largest civic technology and data journalism network, and an ICFJ Knight Fellow. He has trained newsrooms across Europe and Africa; his work has received, among others, the Data Journalism Award (2014), the Sigma Award (2021) and the European Commission's Lorenzo Natali Media Prize.</p>
           <div class="bio-links">
-            <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Sito</a>
+            <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Website</a>
             <a href="https://x.com/JacopoOttaviani" target="_blank" rel="noopener">X</a>
             <a href="https://www.linkedin.com/in/jacopo-ottaviani/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
@@ -802,32 +797,32 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <section id="faq">
   <div class="wrap">
-    <h2>Domande frequenti</h2>
-    <p class="section-sub">Le risposte alle domande più comuni su cosa mostra l'atlante, da dove vengono i dati e come riutilizzarli.</p>
+    <h2>Frequently asked questions</h2>
+    <p class="section-sub">Answers to the most common questions about what the atlas shows, where the data come from and how to reuse them.</p>
     <div class="faq-list">
       <details class="faq-item">
-        <summary>Cosa mostra esattamente ItaliaFragile?</summary>
-        <p>Le aree a pericolosità da frana elevata e molto elevata (P3 e P4) e le aree alluvionabili nello scenario medio (P2) per regioni, province e 7.899 comuni italiani, con la popolazione e gli edifici esposti. I dati vengono dalle mosaicature nazionali ISPRA pubblicate sulla piattaforma <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a>.</p>
+        <summary>What exactly does ItaliaFragile show?</summary>
+        <p>The areas classified as high and very high landslide hazard (P3 and P4) and the flood-prone areas under the medium scenario (P2) for Italy's regions, provinces and 7,899 municipalities, together with the exposed population and buildings. The data come from the ISPRA national hazard mosaics published on the <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a> platform.</p>
       </details>
       <details class="faq-item">
-        <summary>Il mio comune compare tra le aree pericolose: cosa significa?</summary>
-        <p>Significa che una parte del territorio comunale è classificata pericolosa nei Piani di assetto idrogeologico, non che un disastro sia imminente. È una fotografia di dove il rischio esiste ed è documentato: il 94% dei comuni italiani ha almeno un'area a pericolosità da frana o alluvione.</p>
+        <summary>My municipality appears among the hazard areas: what does that mean?</summary>
+        <p>It means that part of the municipal territory is classified as hazardous in Italy's hydrogeological management plans, not that a disaster is imminent. It is a snapshot of where risk exists and is documented: 94% of Italian municipalities have at least one landslide or flood hazard area.</p>
       </details>
       <details class="faq-item">
-        <summary>Che differenza c'è tra pericolosità e rischio?</summary>
-        <p>La pericolosità è la probabilità che un fenomeno — una frana o un'alluvione — interessi una data area. Il rischio combina la pericolosità con l'esposizione (persone, edifici, attività presenti) e la loro vulnerabilità. L'atlante mostra pericolosità ed esposizione: dove sono le aree classificate e chi ci vive.</p>
+        <summary>What is the difference between hazard and risk?</summary>
+        <p>Hazard is the probability that a phenomenon — a landslide or a flood — affects a given area. Risk combines hazard with exposure (the people, buildings and activities present) and their vulnerability. The atlas shows hazard and exposure: where the classified areas are and who lives in them.</p>
       </details>
       <details class="faq-item">
-        <summary>Da dove vengono i dati e quanto sono aggiornati?</summary>
-        <p>Gli indicatori di rischio vengono dalla piattaforma ISPRA IdroGEO, che mosaica a scala nazionale i Piani di assetto idrogeologico e viene aggiornata periodicamente. I dati sulle vittime vengono dal Rapporto Periodico Polaris del CNR-IRPI, i confini amministrativi da ISTAT, i dati economici da ANCE-CRESME, ISPRA ReNDiS e JRC. Tutte le fonti sono in <a href="#metodo">Metodo e fonti</a>.</p>
+        <summary>Where do the data come from and how up to date are they?</summary>
+        <p>The risk indicators come from the ISPRA IdroGEO platform, which mosaics Italy's hydrogeological management plans at national scale and is updated periodically. Casualty data come from the CNR-IRPI Polaris periodic report, administrative boundaries from ISTAT, and the economic figures from ANCE-CRESME, ISPRA ReNDiS and the JRC. All sources are listed under <a href="#metodo">Method &amp; sources</a>.</p>
       </details>
       <details class="faq-item">
-        <summary>Posso riutilizzare le mappe e i dati?</summary>
-        <p>Sì. I dati ISPRA IdroGEO e i confini ISTAT sono pubblicati con licenza CC-BY 4.0: puoi riutilizzarli citando la fonte (ISPRA IdroGEO, ISTAT) e, se riusi le elaborazioni di questo sito, ItaliaFragile con un link.</p>
+        <summary>Can I reuse the maps and the data?</summary>
+        <p>Yes. ISPRA IdroGEO data and ISTAT boundaries are published under a CC-BY 4.0 licence: you can reuse them by crediting the source (ISPRA IdroGEO, ISTAT) and, if you reuse this site's elaborations, ItaliaFragile with a link.</p>
       </details>
       <details class="faq-item">
-        <summary>Chi c'è dietro ItaliaFragile?</summary>
-        <p>ItaliaFragile è un progetto indipendente di data journalism di <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, giornalista dei dati e informatico, Chief Data Officer di Code for Africa e ICFJ Knight Fellow. Per saperne di più: <a href="#progetto">Il progetto</a>.</p>
+        <summary>Who is behind ItaliaFragile?</summary>
+        <p>ItaliaFragile is an independent data journalism project by <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, a data journalist and computer scientist, Chief Data Officer at Code for Africa and ICFJ Knight Fellow. Read more in <a href="#progetto">About the project</a>.</p>
       </details>
     </div>
   </div>
@@ -835,40 +830,40 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
 
 <footer>
   <div class="wrap">
-    <span>Dati: ISPRA IdroGEO e CNR-IRPI Polaris (CC-BY). Made with 💙 by <a href="https://JacopoOttaviani.com" target="_blank" rel="noopener">Jacopo Ottaviani</a>.</span>
-    <a class="kofi" href="https://ko-fi.com/jacopoottaviani" target="_blank" rel="noopener">Offrimi un caffè ☕️</a>
+    <span>Data: ISPRA IdroGEO and CNR-IRPI Polaris (CC-BY). Made with 💙 by <a href="https://JacopoOttaviani.com" target="_blank" rel="noopener">Jacopo Ottaviani</a>.</span>
+    <a class="kofi" href="https://ko-fi.com/jacopoottaviani" target="_blank" rel="noopener">Buy me a coffee ☕️</a>
   </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="data.js"></script>
+<script src="../data.js"></script>
 <script>
 "use strict";
-/* ============================== stato & costanti ============================== */
+/* ============================== state & constants ============================== */
 const RAMP = {
   fr: ["#33301F","#5C4A26","#85652E","#AE8036","#D69A3F"],
   id: ["#1E3A40","#2A5D64","#367F88","#42A2AB","#4FC6CE"]
 };
 const ZERO = "#1B2E35";
 const ACCENT = {fr:"#D69A3F", id:"#4FC6CE"};
-const HAZ_NAME = {fr:"frane", id:"alluvioni"};
+const HAZ_NAME = {fr:"landslides", id:"floods"};
 const METRIC_DEF = {
-  area:{lab:"% del territorio in aree pericolose", short:"territorio", fmt:v=>fmtPct(v)},
-  popp:{lab:"% della popolazione residente in aree pericolose", short:"% persone", fmt:v=>fmtPct(v)},
-  pop:{lab:"persone residenti in aree pericolose", short:"persone", fmt:v=>fmtInt(v)}
+  area:{lab:"% of land in hazard areas", short:"land", fmt:v=>fmtPct(v)},
+  popp:{lab:"% of residents living in hazard areas", short:"% people", fmt:v=>fmtPct(v)},
+  pop:{lab:"people living in hazard areas", short:"people", fmt:v=>fmtInt(v)}
 };
-// indici dell'array COMUNI
+// indices of the COMUNI array
 const C = {ID:0,NOME:1,SIGLA:2,PROV:3,EXT:4,POP:5,FP:6,FPOP:7,FPOPP:8,IP:9,IPOP:10,IPOPP:11,FA:12,IA:13,FED:14,IED:15,I3POP:16,AR:17};
 
 const state = {hazard:"fr", metric:"area", level:"reg"};
 const $ = id => document.getElementById(id);
-const fmtInt = n => (n==null?"n.d.":Math.round(n).toLocaleString("it-IT"));
-const fmtPct = n => (n==null?"n.d.":n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1})+"%");
+const fmtInt = n => (n==null?"n/a":Math.round(n).toLocaleString("en-US"));
+const fmtPct = n => (n==null?"n/a":n.toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1})+"%");
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 
 document.documentElement.style.setProperty("--accent", ACCENT.fr);
 
-/* ============================== valori & classi =============================== */
+/* ============================== values & classes =============================== */
 function entityValue(ind, hazard, metric){
   if(!ind) return null;
   if(hazard==="fr") return metric==="area"?ind.fp: metric==="popp"?ind.fpop_p: ind.fpop;
@@ -876,7 +871,7 @@ function entityValue(ind, hazard, metric){
 }
 function currentIndex(){ return state.level==="reg" ? IND_REG : IND_PROV; }
 
-// indice comuni per pro_com (per choropleth comunale, ricerca e schede)
+// municipality index by pro_com (for the municipal choropleth, search and cards)
 const INDEX_COM = {};
 for(const c of COMUNI) INDEX_COM[c[C.ID]] = c;
 function comValue(c, hazard, metric){
@@ -903,7 +898,7 @@ function colorFor(v){
   return ramp[4];
 }
 
-/* ============================== mappa ============================== */
+/* ============================== map ============================== */
 const ITALY_BOUNDS = L.latLngBounds([35.3,6.5],[47.3,18.7]);
 const map = L.map("map",{
   attributionControl:false, zoomControl:true, scrollWheelZoom:false,
@@ -913,7 +908,7 @@ map.fitBounds(ITALY_BOUNDS);
 map.on("click focus", ()=>map.scrollWheelZoom.enable());
 map.on("blur mouseout", ()=>map.scrollWheelZoom.disable());
 
-/* contesto: paesi europei muti + graticolato, in un pane sotto i dati */
+/* context: muted European countries + graticule, in a pane below the data */
 map.createPane("context");
 map.getPane("context").style.zIndex = 250;
 map.getPane("context").style.pointerEvents = "none";
@@ -921,7 +916,7 @@ const GRAT = [];
 for(let lon=-6; lon<=30; lon+=2) GRAT.push([[30,lon],[56,lon]]);
 for(let lat=30; lat<=56; lat+=2) GRAT.push([[lat,-6],[lat,30]]);
 L.polyline(GRAT,{pane:"context",interactive:false,color:"#24363D",weight:.6,opacity:.5,dashArray:"1 5"}).addTo(map);
-fetch("europa_contesto.json").then(r=>r.json()).then(gj=>{
+fetch("../europa_contesto.json").then(r=>r.json()).then(gj=>{
   L.geoJSON(gj,{pane:"context",interactive:false,style:{fillColor:"#15252C",fillOpacity:1,color:"#24363D",weight:.7,opacity:1}}).addTo(map);
 }).catch(()=>{});
 
@@ -929,7 +924,7 @@ let geoLayer = null, comuneMarker = null;
 let GEO_COM = null, loadingCom = false;
 const comuniRenderer = L.canvas({padding:.3});
 
-/* WMS: mosaicature nazionali di pericolosita' ISPRA (dettaglio sub-comunale) */
+/* WMS: national ISPRA hazard mosaics (sub-municipal detail) */
 const WMS_URL = "https://idrogeo.isprambiente.it/geoserver/idrogeo/wms";
 const WMS_LAYERS = {fr:"idrogeo:pericolosita_frane", id:"idrogeo:pericolosita_alluvioni"};
 let wmsLayer = null;
@@ -968,10 +963,10 @@ function tipFor(props){
 function loadComuni(){
   if(loadingCom) return;
   loadingCom = true;
-  $("mapNote").textContent = "Carico i confini dei 7.899 comuni (circa 2 MB)...";
-  fetch("geo_comuni.json").then(r=>r.json()).then(gj=>{
+  $("mapNote").textContent = "Loading the boundaries of the 7,899 municipalities (about 2 MB)...";
+  fetch("../geo_comuni.json").then(r=>r.json()).then(gj=>{
     GEO_COM = gj; loadingCom = false; drawLayer();
-  }).catch(()=>{ loadingCom = false; $("mapNote").textContent = "Impossibile caricare i confini comunali. Riprova."; });
+  }).catch(()=>{ loadingCom = false; $("mapNote").textContent = "Could not load the municipal boundaries. Please try again."; });
 }
 function drawLayer(){
   if(state.level==="com" && !GEO_COM){ loadComuni(); return; }
@@ -1004,51 +999,51 @@ function drawLegend(){
   const ramp = RAMP[state.hazard];
   const f = state.metric==="pop" ? fmtInt : fmtPct;
   const rows = [];
-  rows.push(`<div class="legend-row"><i style="background:${ZERO}"></i>nessuna area rilevata</div>`);
+  rows.push(`<div class="legend-row"><i style="background:${ZERO}"></i>no areas recorded</div>`);
   let prev = 0;
   for(let i=0;i<4;i++){
-    rows.push(`<div class="legend-row"><i style="background:${ramp[i]}"></i>fino a ${f(bins[i])}</div>`);
+    rows.push(`<div class="legend-row"><i style="background:${ramp[i]}"></i>up to ${f(bins[i])}</div>`);
     prev = bins[i];
   }
-  rows.push(`<div class="legend-row"><i style="background:${ramp[4]}"></i>oltre ${f(prev)}</div>`);
+  rows.push(`<div class="legend-row"><i style="background:${ramp[4]}"></i>above ${f(prev)}</div>`);
   $("legend").innerHTML = `<div class="legend-title">${cap(HAZ_NAME[state.hazard])}: ${m.lab}</div>` + rows.join("");
 }
 function drawNote(){
   const src = state.hazard==="fr"
-    ? "aree a pericolosità da frana elevata e molto elevata (P3 + P4), mosaicatura ISPRA"
-    : "aree a pericolosità idraulica nello scenario medio (P2), mosaicatura ISPRA";
-  const lvl = state.level==="reg"?"regioni italiane":state.level==="prov"?"province italiane":"comuni italiani";
-  let txt = `${cap(lvl)} per ${METRIC_DEF[state.metric].lab}: ${src}. Classi calcolate sui quintili dei valori maggiori di zero. Dati: ISPRA IdroGEO, licenza CC-BY 4.0.`;
-  if(wmsOn()) txt += " In sovrapposizione: le aree reali delle mosaicature nazionali di pericolosità, dal servizio WMS di IdroGEO (ingrandisci per il dettaglio locale).";
+    ? "areas of high and very high landslide hazard (P3 + P4), ISPRA mosaic"
+    : "flood hazard areas under the medium scenario (P2), ISPRA mosaic";
+  const lvl = state.level==="reg"?"Italian regions":state.level==="prov"?"Italian provinces":"Italian municipalities";
+  let txt = `${lvl} by ${METRIC_DEF[state.metric].lab}: ${src}. Classes computed on the quintiles of values above zero. Data: ISPRA IdroGEO, CC-BY 4.0 licence.`;
+  if(wmsOn()) txt += " Overlaid: the actual areas of the national hazard mosaics, from the IdroGEO WMS service (zoom in for local detail).";
   $("mapNote").textContent = txt;
 }
 const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 
-/* ============================== schede di dettaglio ============================== */
+/* ============================== detail cards ============================== */
 function regNameOf(codReg){ const r = IND_REG[String(codReg)]; return r ? r.nome : ""; }
 
 function cardHTML(title, sub, d, idrLink){
   const frPct = Math.min(100, d.fpop_p||0), idPct = Math.min(100, d.ipop_p||0);
   return `
     <div class="dc-name">${title}</div>
-    <div class="dc-sub">${sub} · ${fmtInt(d.pop)} residenti</div>
+    <div class="dc-sub">${sub} · ${fmtInt(d.pop)} residents</div>
     <div class="dc-block">
-      <h4 class="fr">Frane · pericolosità elevata e molto elevata</h4>
-      <div class="dc-row"><span>Territorio</span><span>${fmtPct(d.fp)}</span></div>
-      <div class="dc-row"><span>Persone</span><span>${fmtInt(d.fpop)} (${fmtPct(d.fpop_p)})</span></div>
-      <div class="dc-bar fr" role="img" aria-label="${fmtPct(d.fpop_p)} della popolazione in aree a pericolosità da frana"><i style="width:${frPct}%"></i></div>
-      <div class="dc-row"><span>Edifici</span><span>${fmtInt(d.fed)}</span></div>
+      <h4 class="fr">Landslides · high and very high hazard</h4>
+      <div class="dc-row"><span>Land</span><span>${fmtPct(d.fp)}</span></div>
+      <div class="dc-row"><span>People</span><span>${fmtInt(d.fpop)} (${fmtPct(d.fpop_p)})</span></div>
+      <div class="dc-bar fr" role="img" aria-label="${fmtPct(d.fpop_p)} of the population in landslide hazard areas"><i style="width:${frPct}%"></i></div>
+      <div class="dc-row"><span>Buildings</span><span>${fmtInt(d.fed)}</span></div>
     </div>
     <div class="dc-block">
-      <h4 class="id">Alluvioni · scenario medio</h4>
-      <div class="dc-row"><span>Territorio</span><span>${fmtPct(d.ip)}</span></div>
-      <div class="dc-row"><span>Persone</span><span>${fmtInt(d.ipop)} (${fmtPct(d.ipop_p)})</span></div>
-      <div class="dc-bar id" role="img" aria-label="${fmtPct(d.ipop_p)} della popolazione in aree alluvionabili"><i style="width:${idPct}%"></i></div>
-      <div class="dc-row"><span>Edifici</span><span>${fmtInt(d.ied)}</span></div>
+      <h4 class="id">Floods · medium scenario</h4>
+      <div class="dc-row"><span>Land</span><span>${fmtPct(d.ip)}</span></div>
+      <div class="dc-row"><span>People</span><span>${fmtInt(d.ipop)} (${fmtPct(d.ipop_p)})</span></div>
+      <div class="dc-bar id" role="img" aria-label="${fmtPct(d.ipop_p)} of the population in flood-prone areas"><i style="width:${idPct}%"></i></div>
+      <div class="dc-row"><span>Buildings</span><span>${fmtInt(d.ied)}</span></div>
     </div>
     <div class="dc-foot">
-      <a href="${idrLink}" target="_blank" rel="noopener">Approfondisci su IdroGEO</a>
-      <button id="dcClose">Chiudi</button>
+      <a href="${idrLink}" target="_blank" rel="noopener">Explore on IdroGEO</a>
+      <button id="dcClose">Close</button>
     </div>`;
 }
 function bindCardClose(){
@@ -1058,7 +1053,7 @@ function bindCardClose(){
 function showEntityCard(props){
   const ind = currentIndex()[String(props.cod)];
   if(!ind) return;
-  const sub = state.level==="reg" ? "Regione" : `Provincia · ${regNameOf(ind.reg)}`;
+  const sub = state.level==="reg" ? "Region" : `Province · ${regNameOf(ind.reg)}`;
   $("detailCard").innerHTML = cardHTML(ind.nome, sub, ind, "https://idrogeo.isprambiente.it/app/");
   $("detailCard").classList.add("show");
   bindCardClose();
@@ -1067,11 +1062,11 @@ function showComuneCard(c, boundsFromClick){
   const prov = IND_PROV[String(c[C.PROV])];
   const d = {pop:c[C.POP], fp:c[C.FP], fpop:c[C.FPOP], fpop_p:c[C.FPOPP], fed:c[C.FED],
              ip:c[C.IP], ipop:c[C.IPOP], ipop_p:c[C.IPOPP], ied:c[C.IED]};
-  const sub = `Comune · ${prov?prov.nome:c[C.SIGLA]}, ${prov?regNameOf(prov.reg):""}`;
+  const sub = `Municipality · ${prov?prov.nome:c[C.SIGLA]}, ${prov?regNameOf(prov.reg):""}`;
   $("detailCard").innerHTML = cardHTML(c[C.NOME], sub, d, "https://idrogeo.isprambiente.it/app/");
   $("detailCard").classList.add("show");
   bindCardClose();
-  // zoom sulla mappa + dettaglio locale (WMS) per vedere le aree reali
+  // zoom the map + local detail (WMS) to show the actual areas
   const e = c[C.EXT];
   let b = boundsFromClick;
   if(!b && e && (e[0]||e[2])) b = L.latLngBounds([e[1],e[0]],[e[3],e[2]]).pad(1.6);
@@ -1087,7 +1082,7 @@ function showComuneCard(c, boundsFromClick){
 }
 function clearComuneMarker(){ if(comuneMarker){ map.removeLayer(comuneMarker); comuneMarker=null; } }
 
-/* ============================== ricerca comuni ============================== */
+/* ============================== municipality search ============================== */
 const input = $("comuneInput"), resBox = $("searchResults");
 let selIdx = -1, curResults = [];
 input.addEventListener("input", ()=>{
@@ -1105,7 +1100,7 @@ input.addEventListener("input", ()=>{
   curResults = curResults.slice(0,8).map(x=>x[1]);
   if(!curResults.length){ resBox.style.display="none"; return; }
   resBox.innerHTML = curResults.map((c,i)=>
-    `<button data-i="${i}">${c[C.NOME]} <span class="sr-prov">(${c[C.SIGLA]}) · ${fmtInt(c[C.POP])} ab.</span></button>`).join("");
+    `<button data-i="${i}">${c[C.NOME]} <span class="sr-prov">(${c[C.SIGLA]}) · pop. ${fmtInt(c[C.POP])}</span></button>`).join("");
   resBox.style.display="block";
   resBox.querySelectorAll("button").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
 });
@@ -1126,7 +1121,7 @@ function pick(i){
 }
 document.addEventListener("click", e=>{ if(!$("search-box").contains(e.target)) resBox.style.display="none"; });
 
-/* ============================== controlli segmentati ============================== */
+/* ============================== segmented controls ============================== */
 function segInit(id, onPick){
   $(id).querySelectorAll("button").forEach(b=>{
     b.addEventListener("click", ()=>{
@@ -1141,7 +1136,7 @@ segInit("segMetric", v=>{ state.metric=v; drawLayer(); });
 segInit("segLevel", v=>{ state.level=v; $("detailCard").classList.remove("show"); drawLayer(); });
 $("wmsToggle").addEventListener("change", e=>setWms(e.target.checked));
 
-/* ============================== classifiche ============================== */
+/* ============================== rankings ============================== */
 const rank = {level:"prov", metric:"abs"};
 segInit("segRankLevel", v=>{ rank.level=v; drawRanks(); });
 segInit("segRankMetric", v=>{ rank.metric=v; drawRanks(); });
@@ -1172,8 +1167,8 @@ function drawRanks(){
       </div>`).join("");
   }
   $("rankNote").textContent = rank.level==="com" && rank.metric==="pct"
-    ? "Classifica dei comuni con almeno 5.000 residenti, per evitare che i piccolissimi centri dominino la graduatoria percentuale. Dati: ISPRA IdroGEO."
-    : (rank.level==="com" ? "Tutti i 7.899 comuni italiani. Dati: ISPRA IdroGEO." : "Le 107 province e città metropolitane. Dati: ISPRA IdroGEO.");
+    ? "Ranking of municipalities with at least 5,000 residents, to keep the smallest villages from dominating the percentage leaderboard. Data: ISPRA IdroGEO."
+    : (rank.level==="com" ? "All 7,899 Italian municipalities. Data: ISPRA IdroGEO." : "The 107 provinces and metropolitan cities. Data: ISPRA IdroGEO.");
 }
 
 /* ============================== KPI counter ============================== */
@@ -1192,15 +1187,15 @@ function animateCounters(){
     requestAnimationFrame(step);
   });
   const pct = (STATS.n_comuni_rischio/STATS.n_comuni*100);
-  $("kpiComuni").textContent = pct.toLocaleString("it-IT",{maximumFractionDigits:0})+"%";
+  $("kpiComuni").textContent = pct.toLocaleString("en-US",{maximumFractionDigits:0})+"%";
 }
 
-/* ============================== grafico della sezione costi ============================== */
+/* ============================== costs section chart ============================== */
 segInit("segCostView", v=>{
   $("ccBars").hidden = v!=="bars";
   $("ccBubbles").hidden = v!=="bubbles";
 });
-// bolle: click/tap (e tastiera) per fissare il dettaglio, hover via CSS
+// bubbles: click/tap (and keyboard) to pin the detail, hover via CSS
 const bubs = document.querySelectorAll("#costi .bub");
 function closeBubs(except){
   bubs.forEach(b=>{ if(b!==except){ b.classList.remove("open"); b.setAttribute("aria-expanded","false"); } });
@@ -1232,7 +1227,7 @@ function animateCostBars(){
   io.observe($("costi"));
 }
 
-/* ============================== nav attiva ============================== */
+/* ============================== active nav ============================== */
 const navLinks = document.querySelectorAll("#topnavLinks a");
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(en=>{
@@ -1243,7 +1238,7 @@ const obs = new IntersectionObserver(entries=>{
 },{rootMargin:"-40% 0px -55% 0px"});
 ["mappa","classifiche","vittime","costi","metodo","progetto","faq"].forEach(id=>obs.observe($(id)));
 
-/* ============================== avvio ============================== */
+/* ============================== startup ============================== */
 drawLayer();
 drawRanks();
 animateCounters();

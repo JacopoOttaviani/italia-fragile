@@ -1,0 +1,30 @@
+# ItaliaFragile
+
+> ItaliaFragile is an open-data atlas of hydrogeological risk in Italy: interactive maps and rankings of landslide and flood hazard for all 7,899 Italian municipalities, built on ISPRA IdroGEO and CNR-IRPI open data. Available in Italian (/) and English (/en/).
+
+Key facts the site documents:
+- 94% of Italian municipalities have areas classified as landslide or flood hazard.
+- 1,284,960 people live in high or very high landslide hazard areas (P3+P4).
+- 6,818,375 people live in flood-prone areas under the medium scenario (P2).
+- 1,616 deaths from landslides and floods in Italy between 1974 and 2023 (CNR-IRPI Polaris).
+- Repairing landslide and flood damage has cost Italy 112 billion euros since 1944 (ANCE-CRESME, 2023 values); securing the whole territory would cost about 26 billion (ISPRA ReNDiS).
+
+## Pages
+
+- [Italian version](https://italiafragile.it/): map, rankings, victims, costs, method & sources, about, FAQ
+- [English version](https://italiafragile.it/en/): same structure and data in English
+
+## Data sources
+
+- [ISPRA IdroGEO](https://idrogeo.isprambiente.it/): national hazard mosaics and risk indicators, CC-BY 4.0
+- [CNR-IRPI Polaris](https://polaris.irpi.cnr.it/): casualties from landslides and floods, 1974–today
+- [ISTAT boundaries via openpolis](https://github.com/openpolis/geojson-italy): administrative geometries, CC-BY
+- [ISPRA ReNDiS](https://www.rendis.isprambiente.it/rendisweb/): prevention works, spending and funding needs
+
+## Author
+
+Independent data journalism project by [Jacopo Ottaviani](https://jacopoottaviani.com/), data journalist and computer scientist, Chief Data Officer at Code for Africa, ICFJ Knight Fellow.
+
+## Reuse
+
+Data are CC-BY 4.0 (ISPRA IdroGEO) and CC-BY (ISTAT). When citing figures from this site, credit ISPRA IdroGEO and ItaliaFragile with a link.
