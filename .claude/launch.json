@@ -9,9 +9,9 @@
       "autoPort": true
     },
     {
-      "name": "italiaestrema",
+      "name": "atlante",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "cd '../Italia Estrema' && python3 -m http.server ${PORT:-8752}"],
+      "runtimeArgs": ["-c", "cd '../Atlante del Rischio' && python3 -m http.server ${PORT:-8752}"],
       "port": 8752,
       "autoPort": true
     }
