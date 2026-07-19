@@ -108,7 +108,7 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 
 /* ---------- map section ---------- */
 #mappa{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
-#mappa h2, #classifiche h2, #vittime h2, #costi h2, #metodo h2, #progetto h2, #faq h2{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.6px;margin-bottom:10px;}
+#mappa h2, #classifiche h2, #vittime h2, #costi h2, #progetto h2{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.6px;margin-bottom:10px;}
 .section-sub{color:var(--grey);font-size:15px;max-width:52em;margin-bottom:34px;}
 .map-grid{display:grid;grid-template-columns:308px 1fr;gap:28px;align-items:start;}
 .sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:22px;}
@@ -258,12 +258,8 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 #costi p.src{font-size:12.5px;color:var(--grey);margin-top:38px;max-width:70em;}
 #costi p.src a{color:var(--id);font-weight:600;}
 
-/* ---------- method & sources ---------- */
-#metodo{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
-.met-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:8px;}
+/* ---------- fonti ---------- */
 .met-col h3{font-size:19px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
-.met-col p{font-size:14.5px;color:var(--soft);margin-bottom:12px;max-width:44em;}
-.met-col p b{font-weight:600;color:var(--ink);}
 .met-col .fonte{border:1px solid var(--hair);background:var(--card);padding:16px 18px;margin-bottom:12px;}
 .met-col .fonte a{font-weight:600;color:var(--id);text-decoration:none;border-bottom:1px solid currentColor;}
 .met-col .fonte a:hover{color:var(--id-hi);}
@@ -272,9 +268,13 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 
 /* ---------- progetto ---------- */
 #progetto{padding:64px 0 72px;border-bottom:1px solid var(--hair);background:var(--band);}
-.mission{font-size:16.5px;color:var(--soft);max-width:56em;margin-bottom:44px;line-height:1.6;}
+.mission-row{display:flex;align-items:flex-start;gap:40px;margin-bottom:44px;}
+.mission{font-size:16.5px;color:var(--soft);max-width:56em;line-height:1.6;margin-bottom:0;}
 .mission b{color:var(--ink);font-weight:600;}
+.mission-logo{flex:0 0 auto;width:132px;height:132px;}
+@media (max-width:760px){.mission-logo{display:none;}}
 .about-grid{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start;}
+#fonti-dati{scroll-margin-top:76px;}
 .about-grid h3{font-size:19px;font-weight:600;margin-bottom:14px;letter-spacing:-.2px;}
 .bio-card{border:1px solid var(--hair);background:var(--card);padding:26px;}
 .bio-name{font-size:20px;font-weight:600;letter-spacing:-.3px;}
@@ -285,9 +285,10 @@ header.hero .wrap{position:relative;z-index:4;display:grid;grid-template-columns
 .bio-links a:hover{color:var(--id);border-color:var(--id);}
 
 /* ---------- faq ---------- */
-#faq{padding:64px 0 72px;border-bottom:1px solid var(--hair);}
+.faq-block{margin-top:32px;scroll-margin-top:76px;}
+.faq-sub{color:var(--grey);font-size:13.5px;line-height:1.5;margin-bottom:16px;}
 .faq-list{max-width:880px;}
-.faq-item{border:1px solid var(--hair);background:var(--card);margin-bottom:10px;}
+.faq-item{border:1px solid var(--hair);background:var(--card);margin-bottom:10px;scroll-margin-top:76px;}
 .faq-item summary{cursor:pointer;padding:16px 18px;font-size:15.5px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px;}
 .faq-item summary::-webkit-details-marker{display:none;}
 .faq-item summary::after{content:"+";font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--id);flex-shrink:0;}
@@ -317,7 +318,6 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
   #vittime .vit-grid{grid-template-columns:1fr;gap:32px;}
   .cost-stats{grid-template-columns:1fr 1fr;}
   .cost-roi{grid-template-columns:1fr;gap:32px;}
-  .met-grid{grid-template-columns:1fr;}
   .about-grid{grid-template-columns:1fr;gap:32px;}
 }
 @media (max-width:620px){
@@ -438,7 +438,6 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       <a href="#classifiche">Rankings</a>
       <a href="#vittime">The victims</a>
       <a href="#costi">The bill</a>
-      <a href="#metodo">Method &amp; sources</a>
       <a href="#progetto">About</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -707,51 +706,19 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
       </div>
     </div>
 
-    <p class="src">Sources: ANCE-CRESME, ISPRA ReNDiS, JRC, Emilia-Romagna Region, Greenpeace Italy — full references and links under <a href="#progetto">Data sources</a>.</p>
-  </div>
-</section>
-
-<section id="metodo">
-  <div class="wrap">
-    <h2>Method and sources</h2>
-    <div class="met-grid">
-      <div class="met-col">
-        <h3>How to read the data</h3>
-        <p><b>Landslides.</b> The areas classified as <b>high (P3) and very high (P4)</b> hazard in Italy's hydrogeological management plans, mosaicked at national scale by ISPRA. This is the indicator used for land, population and buildings exposed.</p>
-        <p><b>Floods.</b> The areas liable to flooding under the <b>medium hazard scenario (P2)</b>: floods with a return period of 100 to 200 years, as defined by European Directive 2007/60.</p>
-        <p><b>The people.</b> The exposed population is the number of residents in hazard areas according to the most recent ISTAT census available on the platform. It is not a forecast: it is a snapshot of who lives today in areas classified as hazardous.</p>
-        <p><b>The local detail.</b> The "actual areas" switch overlays the ISPRA mosaics on the map as published, via the IdroGEO WMS service: it is the sub-municipal detail of the classified areas, and it turns on automatically when you search for a municipality.</p>
-        <p><b>The limits.</b> The mosaics aggregate plans drawn up at different times and with different criteria by the district basin authorities; boundaries are generalised for display. For official purposes, the maps of the competent authorities prevail.</p>
-      </div>
-      <div class="met-col">
-        <h3>Open sources</h3>
-        <div class="fonte">
-          <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
-          <div class="f-desc">Italy's national platform on hydrogeological instability: hazard mosaics and risk indicators for every Italian municipality, with an open API and data under a CC-BY 4.0 licence.</div>
-        </div>
-        <div class="fonte">
-          <div class="f-name"><a href="https://polaris.irpi.cnr.it/" target="_blank" rel="noopener">CNR-IRPI Polaris</a></div>
-          <div class="f-desc">Periodic reports on the risk landslides and floods pose to the Italian population: deaths, injuries, evacuees, from 1974 to today.</div>
-        </div>
-        <div class="fonte">
-          <div class="f-name"><a href="https://github.com/openpolis/geojson-italy" target="_blank" rel="noopener">ISTAT administrative boundaries</a></div>
-          <div class="f-desc">Region and province geometries in GeoJSON, derived from ISTAT, simplified for the web (via openpolis).</div>
-        </div>
-        <div class="fonte">
-          <div class="f-name"><a href="https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio/dissesto-idrogeologico" target="_blank" rel="noopener">ISPRA, Report on hydrogeological instability in Italy</a></div>
-          <div class="f-desc">The national report on hazard and risk indicators: the scientific context behind these figures.</div>
-        </div>
-      </div>
-    </div>
+    <p class="src">Sources: ANCE-CRESME, ISPRA ReNDiS, JRC, Emilia-Romagna Region, Greenpeace Italy — full references and links under <a href="#fonti-dati">Data sources</a>.</p>
   </div>
 </section>
 
 <section id="progetto">
   <div class="wrap">
     <h2>About the project</h2>
-    <p class="mission">ItaliaFragile was born to make a risk that touches nearly every Italian municipality readable by anyone. The data on landslides and floods exist, are public and of good quality — but they remain confined to technical platforms and specialist reports. This atlas turns them into <b>maps, rankings and understandable figures, municipality by municipality</b>, so that citizens, journalists and administrators can see where risk concentrates, who lives inside it, and what it costs to keep chasing disasters instead of preventing them.</p>
+    <div class="mission-row">
+      <p class="mission">ItaliaFragile was born to make a risk that touches nearly every Italian municipality readable by anyone. The data on landslides and floods exist, are public and of good quality — but they remain confined to technical platforms and specialist reports. This atlas turns them into <b>maps, rankings and understandable figures, municipality by municipality</b>, so that citizens, journalists and administrators can see where risk concentrates, who lives inside it, and what it costs to keep chasing disasters instead of preventing them.</p>
+      <svg class="mission-logo" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 C32 6 51 30 51 40 A19 19 0 1 1 13 40 C13 30 32 6 32 6 Z" fill="none" stroke="#4FC6CE" stroke-width="3.5"/><path d="M32 24 C32 24 40.5 34.7 40.5 39.2 A8.5 8.5 0 1 1 23.5 39.2 C23.5 34.7 32 24 32 24 Z" fill="#4FC6CE"/></svg>
+    </div>
     <div class="about-grid">
-      <div class="met-col">
+      <div class="met-col" id="fonti-dati">
         <h3>Data sources</h3>
         <div class="fonte">
           <div class="f-name"><a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">ISPRA IdroGEO</a></div>
@@ -799,40 +766,45 @@ footer .kofi:hover{color:var(--id);border-color:var(--id);}
             <a href="https://www.linkedin.com/in/jacopo-ottaviani/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
+        <div id="faq" class="faq-block">
+          <h3>Frequently asked questions</h3>
+          <p class="faq-sub">Answers to the most common questions about what the atlas shows, where the data come from and how to reuse them.</p>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>What exactly does ItaliaFragile show?</summary>
+              <p>The areas classified as high and very high landslide hazard (P3 and P4) and the flood-prone areas under the medium scenario (P2) for Italy's regions, provinces and 7,899 municipalities, together with the exposed population and buildings. The data come from the ISPRA national hazard mosaics published on the <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a> platform.</p>
+            </details>
+            <details class="faq-item" id="metodo">
+              <summary>How to read the data?</summary>
+              <p><b>Landslides.</b> The areas classified as <b>high (P3) and very high (P4)</b> hazard in Italy's hydrogeological management plans, mosaicked at national scale by ISPRA. This is the indicator used for land, population and buildings exposed.</p>
+              <p><b>Floods.</b> The areas liable to flooding under the <b>medium hazard scenario (P2)</b>: floods with a return period of 100 to 200 years, as defined by European Directive 2007/60.</p>
+              <p><b>The people.</b> The exposed population is the number of residents in hazard areas according to the most recent ISTAT census available on the platform. It is not a forecast: it is a snapshot of who lives today in areas classified as hazardous.</p>
+              <p><b>The local detail.</b> The "actual areas" switch overlays the ISPRA mosaics on the map as published, via the IdroGEO WMS service: it is the sub-municipal detail of the classified areas, and it turns on automatically when you search for a municipality.</p>
+              <p><b>The limits.</b> The mosaics aggregate plans drawn up at different times and with different criteria by the district basin authorities; boundaries are generalised for display. For official purposes, the maps of the competent authorities prevail.</p>
+            </details>
+            <details class="faq-item">
+              <summary>My municipality appears among the hazard areas: what does that mean?</summary>
+              <p>It means that part of the municipal territory is classified as hazardous in Italy's hydrogeological management plans, not that a disaster is imminent. It is a snapshot of where risk exists and is documented: 94% of Italian municipalities have at least one landslide or flood hazard area.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What is the difference between hazard and risk?</summary>
+              <p>Hazard is the probability that a phenomenon — a landslide or a flood — affects a given area. Risk combines hazard with exposure (the people, buildings and activities present) and their vulnerability. The atlas shows hazard and exposure: where the classified areas are and who lives in them.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Where do the data come from and how up to date are they?</summary>
+              <p>The risk indicators come from the ISPRA IdroGEO platform, which mosaics Italy's hydrogeological management plans at national scale and is updated periodically. Casualty data come from the CNR-IRPI Polaris periodic report, administrative boundaries from ISTAT, and the economic figures from ANCE-CRESME, ISPRA ReNDiS and the JRC. All sources are listed under <a href="#fonti-dati">Data sources</a>.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I reuse the maps and the data?</summary>
+              <p>Yes. ISPRA IdroGEO data and ISTAT boundaries are published under a CC-BY 4.0 licence: you can reuse them by crediting the source (ISPRA IdroGEO, ISTAT) and, if you reuse this site's elaborations, ItaliaFragile with a link.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Who is behind ItaliaFragile?</summary>
+              <p>ItaliaFragile is an independent data journalism project by <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, a data journalist and computer scientist, Chief Data Officer at Code for Africa and ICFJ Knight Fellow. Read more in <a href="#progetto">About the project</a>.</p>
+            </details>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <h2>Frequently asked questions</h2>
-    <p class="section-sub">Answers to the most common questions about what the atlas shows, where the data come from and how to reuse them.</p>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary>What exactly does ItaliaFragile show?</summary>
-        <p>The areas classified as high and very high landslide hazard (P3 and P4) and the flood-prone areas under the medium scenario (P2) for Italy's regions, provinces and 7,899 municipalities, together with the exposed population and buildings. The data come from the ISPRA national hazard mosaics published on the <a href="https://idrogeo.isprambiente.it/" target="_blank" rel="noopener">IdroGEO</a> platform.</p>
-      </details>
-      <details class="faq-item">
-        <summary>My municipality appears among the hazard areas: what does that mean?</summary>
-        <p>It means that part of the municipal territory is classified as hazardous in Italy's hydrogeological management plans, not that a disaster is imminent. It is a snapshot of where risk exists and is documented: 94% of Italian municipalities have at least one landslide or flood hazard area.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What is the difference between hazard and risk?</summary>
-        <p>Hazard is the probability that a phenomenon — a landslide or a flood — affects a given area. Risk combines hazard with exposure (the people, buildings and activities present) and their vulnerability. The atlas shows hazard and exposure: where the classified areas are and who lives in them.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Where do the data come from and how up to date are they?</summary>
-        <p>The risk indicators come from the ISPRA IdroGEO platform, which mosaics Italy's hydrogeological management plans at national scale and is updated periodically. Casualty data come from the CNR-IRPI Polaris periodic report, administrative boundaries from ISTAT, and the economic figures from ANCE-CRESME, ISPRA ReNDiS and the JRC. All sources are listed under <a href="#metodo">Method &amp; sources</a>.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can I reuse the maps and the data?</summary>
-        <p>Yes. ISPRA IdroGEO data and ISTAT boundaries are published under a CC-BY 4.0 licence: you can reuse them by crediting the source (ISPRA IdroGEO, ISTAT) and, if you reuse this site's elaborations, ItaliaFragile with a link.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Who is behind ItaliaFragile?</summary>
-        <p>ItaliaFragile is an independent data journalism project by <a href="https://jacopoottaviani.com/" target="_blank" rel="noopener">Jacopo Ottaviani</a>, a data journalist and computer scientist, Chief Data Officer at Code for Africa and ICFJ Knight Fellow. Read more in <a href="#progetto">About the project</a>.</p>
-      </details>
     </div>
   </div>
 </section>
@@ -1261,13 +1233,25 @@ const obs = new IntersectionObserver(entries=>{
     }
   });
 },{rootMargin:"-40% 0px -55% 0px"});
-["mappa","classifiche","vittime","costi","metodo","progetto","faq"].forEach(id=>obs.observe($(id)));
+["mappa","classifiche","vittime","costi","progetto","faq"].forEach(id=>obs.observe($(id)));
+
+/* ============================== open FAQ from link ============================== */
+function openFaqFromHash(){
+  const el = location.hash && document.querySelector(location.hash);
+  const details = el && el.closest("details");
+  if(details && !details.open){
+    details.open = true;
+    details.scrollIntoView({block:"start"});
+  }
+}
+window.addEventListener("hashchange", openFaqFromHash);
 
 /* ============================== startup ============================== */
 drawLayer();
 drawRanks();
 animateCounters();
 animateCostBars();
+openFaqFromHash();
 </script>
 </body>
 </html>
